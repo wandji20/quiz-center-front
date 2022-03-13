@@ -1,9 +1,11 @@
-import Home from './components/home/Home';
+import { Outlet } from 'react-router-dom';
+import Nav from './components/header/Nav';
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      <Nav />
+      <Outlet />
     </div>
   );
 }
