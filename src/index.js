@@ -1,28 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './index.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
 import Home from './components/home/Home';
-import SignUp from './components/user/SignUp';
+import Question from './components/question/Question';
 import Login from './components/user/Login';
 import Result from './components/user/Result';
+import SignUp from './components/user/SignUp';
+
+import IndexContextProvider from './context/IndexContextProvider';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Question from './components/question/Question';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="sign_up" element={<SignUp />} />
-          <Route path="login" element={<Login />} />
-          <Route path="result" element={<Result />} />
-          <Route path="question/:id" element={<Question />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <IndexContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path="sign_up" element={<SignUp />} />
+            <Route path="login" element={<Login />} />
+            <Route path="result" element={<Result />} />
+            <Route path="question/:id" element={<Question />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </IndexContextProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
