@@ -9,14 +9,14 @@ const UserContextProvider = ({ children }) => {
   const initialState = {
     user: {},
     result: {},
-    loggedIn: true,
+    loggedIn: false,
   };
 
   const [state, dispatch] = useReducer(userReducer, initialState);
   const value = {
     user: state.user,
     result: state.result,
-    loggedIn: true,
+    loggedIn: state.loggedIn,
 
     loginUser: (user) => {
       dispatch(loginUserAction(user));

@@ -23,17 +23,18 @@ const Result = () => {
         </thead>
         <tbody>
           {
-            quizzes.map((quiz) => {
-              const result = results.find((result) => result.quiz_id === quiz.id);
+            results.map((result) => {
+              const quiz = quizzes.find((quiz) => result.quiz_id === quiz.id);
               const { attempted, score } = result;
+              const { title, id } = quiz;
               counter += 1;
               return (
                 <QuizResult
                   counter={counter}
-                  title={quiz.title}
+                  title={title}
                   attempted={attempted}
                   score={score}
-                  key={quiz.id}
+                  key={id}
                 />
               );
             })
