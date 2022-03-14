@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import QuizContextProvider from './QuizContextProvider';
+import QuizContextProvider from './quiz/QuizContextProvider';
 import UserContextProvider from './UserContextProvider';
 
 export const IndexContext = React.createContext();
@@ -14,7 +14,7 @@ const IndexContextProvider = ({ children }) => (
 );
 
 IndexContextProvider.propTypes = {
-  children: PropTypes.shape(),
+  children: PropTypes.shape().isRequired,
 };
 
 export default IndexContextProvider;
