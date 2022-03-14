@@ -24,7 +24,7 @@ const Nav = () => {
           <span className="pe-2" data-bs-toggle="dropdown">
             <img
               src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y &s=40"
-              style={{ 'border-radius': '50% ' }}
+              style={{ borderRadius: '50% ' }}
               alt="gravatar default"
             />
           </span>

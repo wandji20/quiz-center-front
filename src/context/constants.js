@@ -13,3 +13,5 @@ export const SIGNUP = 'sign_up';
 export const ANSWERED_QUESTION_CREATE = 'answered_questions/create';
 
 export const ANSWERED_QUESTION_UPDATE = 'answered_questions/update';
+
+export const NOTIFICATIONS = 'notifications';

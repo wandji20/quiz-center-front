@@ -19,9 +19,6 @@
 .gravatar:hover {
   cursor: pointer;
 }
-#nav-dropdown .dropdown-menu {
-  min-width: none;
-}
 
 .quiz {
   height: 100px;
