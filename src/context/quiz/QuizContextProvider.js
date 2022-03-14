@@ -13,11 +13,22 @@ const QuizContextProvider = ({ children }) => {
       { id: 3, title: 'mathematics', question_ids: [9, 10, 11, 13, 15] },
       { id: 4, title: 'football', question_ids: [] },
     ],
+    question: {
+      description: 'What is the best programming language for web developent in 2022?',
+      answers: [
+        { id: 1, value: 'Ruby on Rails' },
+        { id: 2, value: 'Node' },
+        { id: 3, value: 'Django' },
+        { id: 4, value: 'Lavarel' },
+        { id: 5, value: 'None' },
+      ],
+    },
   };
 
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const value = {
     quizzes: state.quizzes,
+    question: state.question,
 
     removeQuizQuestion: (quizId) => {
       dispatch(removeQuestionFromQuiz(quizId));

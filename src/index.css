@@ -9,6 +9,7 @@
 
 #content {
   height: 90vh;
+  position: relative;
 }
 
 .gravatar {
@@ -33,4 +34,10 @@
 
 .quiz:hover {
   background-color: white;
+}
+
+.question-actions {
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

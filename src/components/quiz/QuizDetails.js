@@ -5,6 +5,7 @@ import { UserContext } from '../../context/user/UserContextProvider';
 
 const QuizDetails = ({ quiz }) => {
   const { loggedIn } = useContext(UserContext);
+  console.log(loggedIn);
   const [showAction, setShowAction] = useState(false);
 
   const { title, id } = quiz;

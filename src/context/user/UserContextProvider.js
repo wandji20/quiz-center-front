@@ -16,7 +16,7 @@ const UserContextProvider = ({ children }) => {
   const value = {
     user: state.user,
     result: state.result,
-    loggedIn: false,
+    loggedIn: true,
 
     loginUser: (user) => {
       dispatch(loginUserAction(user));
