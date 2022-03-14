@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import QuizContextProvider from './quiz/QuizContextProvider';
-import UserContextProvider from './UserContextProvider';
+import UserContextProvider from './user/UserContextProvider';
 
 export const IndexContext = React.createContext();
 const IndexContextProvider = ({ children }) => (
