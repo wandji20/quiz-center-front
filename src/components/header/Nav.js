@@ -5,11 +5,8 @@ import { UserContext } from '../../context/user/UserContextProvider';
 const Nav = () => {
   const { loggedIn } = useContext(UserContext);
 
-  console.log(loggedIn);
-  // // console.log(quizzContext);
-  // counter();
   return (
-    <nav className="bg-half border-bottom">
+    <nav className="nav bg-light border-bottom">
       <div className="d-flex container-fluid p-0 justify-content-center position-relative">
         <div className="d-flex justify-content-center align-items-center me-1">
           <span className="text-uppercase fw-bold fs-4">Quiz</span>
@@ -27,7 +24,7 @@ const Nav = () => {
           <span className="pe-2" data-bs-toggle="dropdown">
             image
           </span>
-          <ul id="nav-dropdown" className="dropdown-menu" style={{ 'min-width': 'none' }}>
+          <ul id="nav-dropdown" className="dropdown-menu" style={{ minWidth: 'none' }}>
             {
               loggedIn
                 ? (

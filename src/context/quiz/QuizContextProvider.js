@@ -7,7 +7,12 @@ export const QuizContext = createContext();
 
 const QuizContextProvider = ({ children }) => {
   const initialState = {
-    quizzes: [],
+    quizzes: [
+      { id: 1, title: 'geography', question_ids: [1, 2, 3, 4] },
+      { id: 2, title: 'history', question_ids: [5, 6, 7, 8] },
+      { id: 3, title: 'mathematics', question_ids: [9, 10, 11, 13, 15] },
+      { id: 4, title: 'football', question_ids: [] },
+    ],
   };
 
   const [state, dispatch] = useReducer(quizReducer, initialState);

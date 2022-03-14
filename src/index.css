@@ -3,14 +3,34 @@
   width: 100vw;
 }
 
-.navbar {
+.nav {
   height: 10vh;
+}
+
+#content {
+  height: 90vh;
 }
 
 .gravatar {
   right: 0;
 }
 
+.gravatar:hover {
+  cursor: pointer;
+}
 #nav-dropdown .dropdown-menu {
   min-width: none;
+}
+
+.quiz {
+  height: 100px;
+  border-radius: 5px;
+}
+
+.primary-bg {
+  background-color: rgb(50, 50, 202);
+}
+
+.quiz:hover {
+  background-color: white;
 }

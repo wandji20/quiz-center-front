@@ -25,7 +25,7 @@ ReactDOM.render(
             <Route path="sign_up" element={<SignUp />} />
             <Route path="login" element={<Login />} />
             <Route path="result" element={<Result />} />
-            <Route path="question/:id" element={<Question />} />
+            <Route path="quiz/:id/question/:id" element={<Question />} />
           </Route>
         </Routes>
       </BrowserRouter>
