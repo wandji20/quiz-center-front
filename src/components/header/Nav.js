@@ -22,7 +22,11 @@ const Nav = () => {
           className="position-absolute gravatar d-flex justify-content-center align-items-center h-100"
         >
           <span className="pe-2" data-bs-toggle="dropdown">
-            image
+            <img
+              src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y &s=40"
+              style={{ 'border-radius': '50% ' }}
+              alt="gravatar default"
+            />
           </span>
           <ul id="nav-dropdown" className="dropdown-menu" style={{ minWidth: 'none' }}>
             {

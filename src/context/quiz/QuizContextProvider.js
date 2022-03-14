@@ -23,12 +23,20 @@ const QuizContextProvider = ({ children }) => {
         { id: 5, value: 'None' },
       ],
     },
+
+    results: [
+      { quiz_id: 1, attempted: 2, score: 1 },
+      { quiz_id: 2, attempted: 5, score: 3 },
+      { quiz_id: 3, attempted: 4, score: 1 },
+      { quiz_id: 4, attempted: 5, score: 5 },
+    ],
   };
 
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const value = {
     quizzes: state.quizzes,
     question: state.question,
+    results: state.results,
 
     removeQuizQuestion: (quizId) => {
       dispatch(removeQuestionFromQuiz(quizId));
