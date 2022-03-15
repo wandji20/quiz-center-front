@@ -5,7 +5,7 @@ import { UserContext } from '../../context/user/UserContextProvider';
 
 const QuizDetails = ({ quiz }) => {
   const { loggedIn } = useContext(UserContext);
-  console.log(loggedIn);
+
   const [showAction, setShowAction] = useState(false);
 
   const { title, id } = quiz;
@@ -25,7 +25,7 @@ const QuizDetails = ({ quiz }) => {
             className="text-white text-decoration-none btn primary-bg"
           >
             {
-              questionIds.length === 5
+              questionIds.length === 5 || !loggedIn
                 ? (
                   <span className="">
                     Start Quiz

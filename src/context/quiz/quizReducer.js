@@ -3,7 +3,7 @@ import { QuizIndex, REMOVE_QUESTION_FROM_QUIZ } from '../constants';
 const quizReducer = (state, action) => {
   switch (action.type) {
     case QuizIndex: {
-      return action.payload;
+      return { ...state, quizzes: action.payload };
     }
     case REMOVE_QUESTION_FROM_QUIZ: {
       const { quizId, questionId } = action.payload;

@@ -1,7 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { loginRequest } from '../../api/api';
+import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
+import { QuizContext } from '../../context/quiz/QuizContextProvider';
+import { UserContext } from '../../context/user/UserContextProvider';
+import { setAuthToken } from '../../utils/utils';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
+  const { addNotification } = useContext(NotificationContext);
+  const { loginUser } = useContext(UserContext);
+  const { saveQuizzes } = useContext(QuizContext);
+
   const [userObj, setUserObj] = useState({
     email: '',
     password: '',
@@ -25,15 +38,42 @@ const Login = () => {
     ));
   };
 
+  const resetPassword = () => {
+    setUserObj((state) => ({
+      ...state, password: '',
+    }));
+  };
+
+  const handleUserLogin = async () => {
+    addNotification();
+    try {
+      const response = await loginRequest(userObj);
+      const { Authorization, quizzes, user } = response;
+      if (Authorization) {
+        resetUserObj();
+        setAuthToken(Authorization);
+        saveQuizzes(quizzes);
+        loginUser({ user, loggedIn: true });
+
+        addNotification({ notice: 'Successful' });
+        navigate(from, { replace: true });
+      } else {
+        addNotification(response);
+      }
+    } catch (e) {
+      addNotification({ alert: e.message });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userObj);
-    resetUserObj();
+    resetPassword();
+    handleUserLogin();
   };
 
   return (
 
-    <div className="py-2 container-fluid mt-3">
+    <div className="py-2 container-fluid pt-3">
 
       <h4 className="text-center">Login</h4>
       <div className="d-flex flex-column align-items-center col-9 mt-3 mx-auto">

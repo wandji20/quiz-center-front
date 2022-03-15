@@ -23,7 +23,7 @@ const UserContextProvider = ({ children }) => {
     },
 
     logoutUser: () => {
-      dispatch(logoutUserAction);
+      dispatch(logoutUserAction());
     },
   };
   return (

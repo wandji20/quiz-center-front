@@ -6,3 +6,7 @@ export const getAuthToken = () => {
   const token = sessionStorage.getItem('quizCenterAuthToken');
   return token;
 };
+
+export const clearAuthToken = () => {
+  sessionStorage.removeItem('quizCenterAuthToken');
+};

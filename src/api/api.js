@@ -1,7 +1,14 @@
 import { BASE_URL } from '../context/constants';
+import { getAuthToken } from '../utils/utils';
 
-export const fetchQuizzes = async () => {
-  const server = await fetch(BASE_URL);
+export const fetchQuizzesRequest = async () => {
+  const Authorization = getAuthToken();
+  const url = Authorization !== null ? `${BASE_URL}/home` : BASE_URL;
+  console.log(Authorization !== null, url);
+  const server = await fetch(url,
+    {
+      headers: { Authorization },
+    });
   const response = await server.json();
   return response;
 };
@@ -21,6 +28,7 @@ export const signUpRequest = async (user) => {
 export const loginRequest = async (authentication) => {
   const url = `${BASE_URL}/login`;
   const server = await fetch(url, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

@@ -1,9 +1,18 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import { UserContext } from '../../context/user/UserContextProvider';
+import { clearAuthToken } from '../../utils/utils';
 
 const Nav = () => {
-  const { loggedIn } = useContext(UserContext);
+  const { loggedIn, logoutUser } = useContext(UserContext);
+  const { addNotification } = useContext(NotificationContext);
+
+  const handleLogoutUser = () => {
+    logoutUser();
+    clearAuthToken();
+    addNotification({ notice: 'signed out' });
+  };
 
   return (
     <nav className="nav bg-light border-bottom">
@@ -40,7 +49,11 @@ const Nav = () => {
                     </li>
                     <li><hr className="dropdown-divider" /></li>
                     <li>
-                      <Link to="/" className="dropdown-item">
+                      <Link
+                        to="/"
+                        className="dropdown-item"
+                        onClick={handleLogoutUser}
+                      >
                         logout
                       </Link>
                     </li>
