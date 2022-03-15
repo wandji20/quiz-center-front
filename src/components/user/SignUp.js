@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signUpRequest } from '../../api/api';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
@@ -11,8 +11,7 @@ const SignUp = () => {
   const { addNotification, errors } = useContext(NotificationContext);
   const { loginUser } = useContext(UserContext);
   const { saveQuizzes } = useContext(QuizContext);
-
-  console.log(errors);
+  const navigate = useNavigate();
   const [userObj, setUserObj] = useState({
     first_name: '',
     last_name: '',
@@ -57,9 +56,10 @@ const SignUp = () => {
         resetUserObj();
         setAuthToken(Authorization);
         saveQuizzes(quizzes);
-        loginUser({ user, loggedIn: true });
+        loginUser({ user });
 
-        addNotification({ notice: 'Successful' });
+        addNotification({ notice: 'Account created' });
+        navigate('/');
       } else {
         addNotification(response);
       }
@@ -128,7 +128,6 @@ const SignUp = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="form-label w-100">
-              spa
               <span className="d-block">Password</span>
               {
                 errors.password && <FormError message={errors.password[0]} />

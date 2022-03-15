@@ -53,7 +53,7 @@ const Login = () => {
         resetUserObj();
         setAuthToken(Authorization);
         saveQuizzes(quizzes);
-        loginUser({ user, loggedIn: true });
+        loginUser({ user });
 
         addNotification({ notice: 'Successful' });
         navigate(from, { replace: true });

@@ -6,9 +6,9 @@ const Result = () => {
   const { quizzes, results } = useContext(QuizContext);
   let counter = 0;
   const totalAttempted = results.map((result) => result.attempted)
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b, 0);
   const totalCorrect = results.map((result) => result.score)
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b, 0);
 
   return (
     <div className="m-auto text-center ">

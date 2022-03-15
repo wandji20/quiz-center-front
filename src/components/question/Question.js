@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { QuizContext } from '../../context/quiz/QuizContextProvider';
+/* eslint-disable */
+import React, { useState } from 'react';
 import Answer from './Answer';
 
 const Question = () => {
   const [answer, setAnswer] = useState(null);
-  const { question } = useContext(QuizContext);
+  const [question, setQuestion] = useState({ description: '', answers: []})
+
+  console.log(question);
 
   const { description, answers } = question;
 

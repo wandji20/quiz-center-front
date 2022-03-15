@@ -16,12 +16,13 @@ function App() {
     addNotification();
     try {
       const response = await fetchQuizzesRequest();
+
       const { quizzes, user, alert } = response;
       if (quizzes) {
         saveQuizzes(quizzes);
       }
       if (user) {
-        loginUser({ user, loggedIn: true });
+        loginUser({ user });
       }
       if (alert) {
         addNotification(response);

@@ -7,8 +7,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import App from './App';
 import Home from './components/home/Home';
 import Question from './components/question/Question';
-import Login from './components/user/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 import Result from './components/user/Result';
+import Login from './components/user/Login';
 import SignUp from './components/user/SignUp';
 
 import IndexContextProvider from './context/IndexContextProvider';
@@ -24,8 +25,10 @@ ReactDOM.render(
             <Route index element={<Home />} />
             <Route path="sign_up" element={<SignUp />} />
             <Route path="login" element={<Login />} />
-            <Route path="result" element={<Result />} />
-            <Route path="quiz/:id/question/:id" element={<Question />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="result" element={<Result />} />
+              <Route path="quiz/:id/question/:id" element={<Question />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
