@@ -16,8 +16,8 @@ const QuizContextProvider = ({ children }) => {
     quizzes: state.quizzes,
     results: state.results,
 
-    removeQuizQuestion: (quizId) => {
-      dispatch(removeQuestionFromQuiz(quizId));
+    removeQuizQuestion: (quizId, questionId) => {
+      dispatch(removeQuestionFromQuiz({ quizId, questionId }));
     },
 
     saveQuizzes: (quizzes) => {
