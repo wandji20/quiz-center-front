@@ -5,6 +5,8 @@ import { UserContext } from '../../context/user/UserContextProvider';
 import Answer from './Answer';
 
 const Question = () => {
+  const urlParams = useParams()
+
   const { loggedIn } = useContext(UserContext);
   const [answer, setAnswer] = useState(null);
   const [question, setQuestion] = useState({ description: '', answers: []})
@@ -12,7 +14,6 @@ const Question = () => {
   useEffect(() => {
 
   }, [])
-  const urlParams = useParams()
 
   console.log(urlParams)
   const { description, answers } = question;
