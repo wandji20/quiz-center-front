@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { signUpRequest } from '../../api/api';
+import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
+import { QuizContext } from '../../context/quiz/QuizContextProvider';
+import { UserContext } from '../../context/user/UserContextProvider';
+import { setAuthToken } from '../../utils/utils';
+import FormError from '../notification/FormError';
 
 const SignUp = () => {
+  const { addNotification, errors } = useContext(NotificationContext);
+  const { loginUser } = useContext(UserContext);
+  const { saveQuizzes } = useContext(QuizContext);
+
+  console.log(errors);
   const [userObj, setUserObj] = useState({
     first_name: '',
     last_name: '',
@@ -31,10 +42,36 @@ const SignUp = () => {
     ));
   };
 
+  const resetPassword = () => {
+    setUserObj((state) => ({
+      ...state, password: '', password_confirmation: '',
+    }));
+  };
+
+  const handleUserSignUp = async () => {
+    addNotification();
+    try {
+      const response = await signUpRequest(userObj);
+      const { Authorization, quizzes, user } = response;
+      if (Authorization) {
+        resetUserObj();
+        setAuthToken(Authorization);
+        saveQuizzes(quizzes);
+        loginUser({ user, loggedIn: true });
+
+        addNotification({ notice: 'Successful' });
+      } else {
+        addNotification(response);
+      }
+    } catch (e) {
+      addNotification({ alert: e.message });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userObj);
-    resetUserObj();
+    resetPassword();
+    handleUserSignUp();
   };
 
   return (
@@ -45,8 +82,11 @@ const SignUp = () => {
       <div className="d-flex flex-column align-items-center col-9 mt-1 mx-auto">
         <form className="col-12" onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="first_name" className="form-label">
-              First Name
+            <label htmlFor="first_name" className="form-label w-100">
+              <span className="d-block">First Name</span>
+              {
+                errors.first_name && <FormError message={errors.first_name[0]} />
+              }
               <input
                 type="text"
                 className="form-control"
@@ -57,8 +97,11 @@ const SignUp = () => {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="last_name" className="form-label">
-              Last Name
+            <label htmlFor="last_name" className="form-label w-100">
+              <span className="d-block">Last name</span>
+              {
+              errors.last_name && <FormError message={errors.last_name[0]} />
+            }
               <input
                 type="text"
                 className="form-control"
@@ -69,8 +112,11 @@ const SignUp = () => {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
+            <label htmlFor="email" className="form-label w-100">
+              <span className="d-block">Email</span>
+              {
+                errors.email && <FormError message={errors.email[0]} />
+              }
               <input
                 type="email"
                 className="form-control"
@@ -81,8 +127,12 @@ const SignUp = () => {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
+            <label htmlFor="password" className="form-label w-100">
+              spa
+              <span className="d-block">Password</span>
+              {
+                errors.password && <FormError message={errors.password[0]} />
+              }
               <input
                 type="password"
                 className="form-control"
@@ -93,8 +143,12 @@ const SignUp = () => {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="password_confirmation" className="form-label">
-              Password Confirmation
+            <label htmlFor="password_confirmation " className="form-label w-100">
+              <span className="d-block">Password Confirmation</span>
+              {
+                errors.password_confirmation
+                  && <FormError message={errors.password_confirmation[0]} />
+              }
               <input
                 type="password"
                 className="form-control"

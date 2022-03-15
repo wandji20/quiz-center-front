@@ -4,7 +4,7 @@ import { getAuthToken } from '../utils/utils';
 export const fetchQuizzesRequest = async () => {
   const Authorization = getAuthToken();
   const url = Authorization !== null ? `${BASE_URL}/home` : BASE_URL;
-  console.log(Authorization !== null, url);
+
   const server = await fetch(url,
     {
       headers: { Authorization },
@@ -16,6 +16,7 @@ export const fetchQuizzesRequest = async () => {
 export const signUpRequest = async (user) => {
   const url = `${BASE_URL}/sign_up`;
   const server = await fetch(url, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
