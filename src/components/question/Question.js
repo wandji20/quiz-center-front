@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/user/UserContextProvider';
 import Answer from './Answer';
@@ -9,7 +9,9 @@ const Question = () => {
   const [answer, setAnswer] = useState(null);
   const [question, setQuestion] = useState({ description: '', answers: []})
 
-  console.log(question);
+  useEffect(() => {
+
+  }, [])
   const urlParams = useParams()
 
   console.log(urlParams)

@@ -13,6 +13,10 @@ const QuizDetails = ({ quiz }) => {
   const questionId = questionIds[0];
   const questionUrl = `/quiz/${id}/question/${questionIds[0] ? questionId : 'id'}`;
 
+  const handleAnsweredQuestionRequest = async () => {
+
+  };
+
   const actionDisplay = () => {
     switch (true) {
       case !loggedIn: {
@@ -57,6 +61,7 @@ const QuizDetails = ({ quiz }) => {
           <Link
             to={questionUrl}
             className="text-white text-decoration-none btn primary-bg"
+            onClick={handleAnsweredQuestionRequest}
           >
             {
               actionDisplay()
