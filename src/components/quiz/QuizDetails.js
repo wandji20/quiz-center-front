@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -11,8 +10,8 @@ const QuizDetails = ({ quiz }) => {
 
   const { title, id } = quiz;
   const questionIds = quiz.question_ids || [];
-  const questionId = questionIds[0]
-  const questionUrl = `/quiz/${id}/question/${questionIds[0] ? questionId : 'id'}`
+  const questionId = questionIds[0];
+  const questionUrl = `/quiz/${id}/question/${questionIds[0] ? questionId : 'id'}`;
 
   const actionDisplay = () => {
     switch (true) {
@@ -21,32 +20,32 @@ const QuizDetails = ({ quiz }) => {
           <span className="">
             Start Quiz
           </span>
-        )
-      };
-      case loggedIn && questionIds.length === 5 : {
+        );
+      }
+      case loggedIn && questionIds.length === 5: {
         return (
           <span className="">
             Start Quiz
           </span>
-        )
+        );
       }
 
-      case loggedIn && questionIds.length > 0 : {
+      case loggedIn && questionIds.length > 0: {
         return (
           <span className="">
             Continue
           </span>
-        )
+        );
       }
-    
-      default: 
+
+      default:
         return (
           <span className="">
             Completed
           </span>
-        )
+        );
     }
-  }
+  };
   return (
     <div
       className="quiz primary-bg col-10 fs-3 text-white d-flex justify-content-center align-items-center "

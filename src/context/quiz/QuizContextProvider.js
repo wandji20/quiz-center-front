@@ -8,14 +8,12 @@ export const QuizContext = createContext();
 const QuizContextProvider = ({ children }) => {
   const initialState = {
     quizzes: [],
-    question: {},
     results: [],
   };
 
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const value = {
     quizzes: state.quizzes,
-    question: state.question,
     results: state.results,
 
     removeQuizQuestion: (quizId) => {

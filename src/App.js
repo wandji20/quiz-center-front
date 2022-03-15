@@ -1,13 +1,14 @@
-import { useContext, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { fetchQuizzesRequest } from './api/api';
+import { useContext, useEffect } from 'react';
 import Nav from './components/header/Nav';
+import { fetchQuizzesRequest } from './api/api';
 import Notification from './components/notification/Notification';
 import { NotificationContext } from './context/notifications/NotificationContextProvider';
 import { QuizContext } from './context/quiz/QuizContextProvider';
 import { UserContext } from './context/user/UserContextProvider';
 
 function App() {
+  console.log('In App');
   const { notice, alert, addNotification } = useContext(NotificationContext);
   const { saveQuizzes } = useContext(QuizContext);
   const { loginUser } = useContext(UserContext);
@@ -18,11 +19,11 @@ function App() {
       const response = await fetchQuizzesRequest();
 
       const { quizzes, user, alert } = response;
-      if (quizzes) {
-        saveQuizzes(quizzes);
-      }
       if (user) {
         loginUser({ user });
+      }
+      if (quizzes) {
+        saveQuizzes(quizzes);
       }
       if (alert) {
         addNotification(response);

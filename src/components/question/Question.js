@@ -1,13 +1,18 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { UserContext } from '../../context/user/UserContextProvider';
 import Answer from './Answer';
 
 const Question = () => {
+  const { loggedIn } = useContext(UserContext);
   const [answer, setAnswer] = useState(null);
   const [question, setQuestion] = useState({ description: '', answers: []})
 
   console.log(question);
+  const urlParams = useParams()
 
+  console.log(urlParams)
   const { description, answers } = question;
 
   const handleAnswerChange = (e) => {

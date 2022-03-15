@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
+
 import QuizResult from './QuizResult';
 
 const Result = () => {
   const { quizzes, results } = useContext(QuizContext);
+
   let counter = 0;
   const totalAttempted = results.map((result) => result.attempted)
     .reduce((a, b) => a + b, 0);

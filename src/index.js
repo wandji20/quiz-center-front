@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -11,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Result from './components/user/Result';
 import Login from './components/user/Login';
 import SignUp from './components/user/SignUp';
+
 
 import IndexContextProvider from './context/IndexContextProvider';
 import './index.css';
@@ -27,7 +29,7 @@ ReactDOM.render(
             <Route path="login" element={<Login />} />
             <Route element={<ProtectedRoute />}>
               <Route path="result" element={<Result />} />
-              <Route path="quiz/:id/question/:id" element={<Question />} />
+              <Route path="quiz/:quiz_id/question/:question_id" element={<Question />} />
             </Route>
           </Route>
         </Routes>
