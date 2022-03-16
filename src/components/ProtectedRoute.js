@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
   const questionId = location.state?.questionId;
   const { loggedIn } = useContext(UserContext);
 
-  if (questionId === null) {
+  if (questionId === 'id') {
     return <Navigate to="/" />;
   }
 
