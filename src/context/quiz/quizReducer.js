@@ -7,11 +7,11 @@ const quizReducer = (state, action) => {
     }
     case REMOVE_QUESTION_FROM_QUIZ: {
       const { quizId, questionId } = action.payload;
-
+      console.log(action.payload);
       const filteredQuizzes = [];
       state.quizzes.forEach((quiz) => {
-        if (quiz.id === quizId) {
-          const questionIds = quiz.question_ids.filter((id) => (id !== questionId));
+        if (quiz.id === Number(quizId)) {
+          const questionIds = quiz.question_ids.filter((id) => (id !== Number(questionId)));
 
           filteredQuizzes.push({ ...quiz, question_ids: questionIds });
         } else {

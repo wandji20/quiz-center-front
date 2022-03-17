@@ -28,8 +28,8 @@ ReactDOM.render(
             <Route path="sign_up" element={<SignUp />} />
             <Route path="login" element={<Login />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="result" element={<Result />} />
-              <Route path="quiz/:quizId/question/:questionId" element={<Question />} />
+              <Route path="/result" element={<Result />} />
+              <Route path="/quiz/:quizId/question/:questionId" element={<Question />} />
             </Route>
           </Route>
         </Routes>
