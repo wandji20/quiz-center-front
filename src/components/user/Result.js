@@ -1,17 +1,40 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
+import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 
 import QuizResult from './QuizResult';
+import { getResultsRequest } from '../../api/api';
 
 const Result = () => {
-  const { quizzes, results } = useContext(QuizContext);
+  const { quizzes, results, saveResult } = useContext(QuizContext);
+  const { addNotification } = useContext(NotificationContext);
 
-  let counter = 0;
+  const handlefetchResultsRequest = async () => {
+    try {
+      const response = await getResultsRequest();
+      const { alert, result } = response;
+      if (result) {
+        saveResult({ results: result });
+      }
+      if (alert) {
+        addNotification({ alert });
+      }
+    } catch (error) {
+      addNotification({ alert: error.message });
+    }
+  };
+
   const totalAttempted = results.map((result) => result.attempted)
     .reduce((a, b) => a + b, 0);
   const totalCorrect = results.map((result) => result.score)
     .reduce((a, b) => a + b, 0);
 
+  useEffect(() => {
+    handlefetchResultsRequest();
+  }, []);
+  console.log(quizzes);
+  console.log(results);
+  let counter = 1;
   return (
     <div className="m-auto text-center ">
       <table className="table text-capitalize">
@@ -23,25 +46,30 @@ const Result = () => {
             <th scope="col">Correct</th>
           </tr>
         </thead>
-        <tbody>
-          {
-            results.map((result) => {
-              const quiz = quizzes.find((quiz) => result.quiz_id === quiz.id);
-              const { attempted, score } = result;
-              const { title, id } = quiz;
-              counter += 1;
-              return (
-                <QuizResult
-                  counter={counter}
-                  title={title}
-                  attempted={attempted}
-                  score={score}
-                  key={id}
-                />
-              );
-            })
-          }
-        </tbody>
+        {
+          (results.length > 0 && quizzes.length > 0)
+          && (
+            <tbody>
+              {
+                results.map((result) => {
+                  const quiz = quizzes.find((quiz) => result.quiz_id === quiz.id);
+                  const { attempted, score } = result;
+                  const { title, id } = quiz;
+                  counter += 1;
+                  return (
+                    <QuizResult
+                      counter={counter}
+                      title={title}
+                      attempted={attempted}
+                      score={score}
+                      key={id}
+                    />
+                  );
+                })
+              }
+            </tbody>
+          )
+        }
       </table>
 
       <p className="mt-4">

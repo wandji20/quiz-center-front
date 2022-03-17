@@ -1,4 +1,4 @@
-import { QuizIndex, REMOVE_QUESTION_FROM_QUIZ } from '../constants';
+import { QuizIndex, REMOVE_QUESTION_FROM_QUIZ, RESULT } from '../constants';
 
 const quizReducer = (state, action) => {
   switch (action.type) {
@@ -7,7 +7,6 @@ const quizReducer = (state, action) => {
     }
     case REMOVE_QUESTION_FROM_QUIZ: {
       const { quizId, questionId } = action.payload;
-      console.log(action.payload);
       const filteredQuizzes = [];
       state.quizzes.forEach((quiz) => {
         if (quiz.id === Number(quizId)) {
@@ -19,6 +18,10 @@ const quizReducer = (state, action) => {
         }
       });
       return { ...state, quizzes: filteredQuizzes };
+    }
+
+    case RESULT: {
+      return { ...state, ...action.payload };
     }
     default:
       return state;

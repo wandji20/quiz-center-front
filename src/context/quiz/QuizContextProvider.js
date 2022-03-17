@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import quizReducer from './quizReducer';
-import { quizIndexAction, removeQuestionFromQuiz } from './quizActions';
+import { quizIndexAction, removeQuestionFromQuiz, resultsAction } from './quizActions';
 
 export const QuizContext = createContext();
 
@@ -22,6 +22,10 @@ const QuizContextProvider = ({ children }) => {
 
     saveQuizzes: (quizzes) => {
       dispatch(quizIndexAction(quizzes));
+    },
+
+    saveResult: (results) => {
+      dispatch(resultsAction(results));
     },
   };
 

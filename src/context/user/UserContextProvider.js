@@ -9,14 +9,12 @@ export const UserContext = React.createContext();
 const UserContextProvider = ({ children }) => {
   const initialState = {
     user: {},
-    result: {},
     loggedIn: getLoggedInStatus(),
   };
 
   const [state, dispatch] = useReducer(userReducer, initialState);
   const value = {
     user: state.user,
-    result: state.result,
     loggedIn: state.loggedIn,
 
     loginUser: (user) => {

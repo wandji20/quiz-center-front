@@ -54,16 +54,14 @@ export const createAnsweredQuestionRequest = async (answeredQuestion) => {
   return response;
 };
 
-export const updateAnsweredQuestionRequest = async (answeredQuestion, id) => {
-  const url = `${BASE_URL}/answered_questions/${id}`;
+export const getResultsRequest = async () => {
+  const url = `${BASE_URL}/result`;
   const Authorization = getAuthToken();
   const server = await fetch(url, {
-    methos: 'PUT',
     headers: {
       Authorization,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ answered_question: answeredQuestion }),
   });
   const response = await server.json();
   return response;
