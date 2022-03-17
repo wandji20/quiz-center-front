@@ -11,6 +11,7 @@ import { createAnsweredQuestionRequest } from '../../api/api';
 import { UserContext } from '../../context/user/UserContextProvider';
 import Answer from './Answer';
 import { getAuthToken } from '../../utils/utils';
+import CountDown from './CountDown';
 
 const Question = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Question = () => {
   console.log('In Question');
 
   const [answer, setAnswer] = useState(null);
-  const [question, setQuestion] = useState({ points: 0, description: '', answers: [] });
+  const [question, setQuestion] = useState({ description: '', answers: [] });
 
   const handlecreateAnsweredQuestionRequest = async () => {
     try {
@@ -56,10 +57,21 @@ const Question = () => {
   const token = getAuthToken();
   const cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${token}`);
 
+  const timerRef = useRef(
+    {
+      points: 1,
+      createdAt: Date.now(),
+    },
+  );
+
   const handleCableResponse = (data) => {
     const answeredQuestion = data.question.question;
     setQuestion(answeredQuestion);
-    answeredQuestionRef.current = data.answered_question_id;
+    answeredQuestionRef.current = data.answered_question.id;
+    timerRef.current = {
+      points: answeredQuestion.points,
+      createdAt: data.answered_question.created_at,
+    };
   };
 
   const createSubscription = () => cable.subscriptions.create(
@@ -114,6 +126,7 @@ const Question = () => {
   const handleSaveAndExit = (e) => {
     e.preventDefault();
     handleAnswerSubmit();
+    removeQuizQuestion(quizId, urlQuestionId);
     navigate('/');
   };
 
@@ -126,7 +139,7 @@ const Question = () => {
 
   return (
     <div className="pt-5 fs-4 d-flex flex-column">
-      <span>{}</span>
+      <CountDown timer={timerRef.current} />
       <p className="p-0 d-flex justify-content-around col-12">
         <span className="fw-bold col-1">Q.</span>
         <span className=" col-10">{description}</span>
