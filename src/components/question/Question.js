@@ -58,7 +58,7 @@ const Question = () => {
   };
 
   const token = getAuthToken();
-  const cable = ActionCable.createConsumer(`ws://${BASE_WSS}/cable?token=${token}`);
+  const cable = ActionCable.createConsumer(`wss://${BASE_WSS}/cable?token=${token}`);
 
   const timerRef = useRef(
     {
