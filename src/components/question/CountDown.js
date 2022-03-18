@@ -19,11 +19,11 @@ const CountDown = ({ timer }) => {
     return () => {
       clearTimeout(performCounter);
     };
-  }, [count]);
+  }, [count, timer]);
 
   useEffect(() => {
     setCount(initialCount);
-  }, [points, createdAt]);
+  }, [timer]);
 
   return (
     <>
