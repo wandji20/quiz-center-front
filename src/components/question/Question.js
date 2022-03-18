@@ -164,7 +164,7 @@ const Question = () => {
           }
         </div>
         {
-            !status && (
+            status && (
               <div className="question-actions position-absolute">
                 <div className="col-10 mx-auto d-flex justify-content-between pb-2">
                   <button
