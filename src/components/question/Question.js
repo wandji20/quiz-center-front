@@ -2,7 +2,7 @@ import React, {
   useContext, useState, useEffect, useRef,
 } from 'react';
 import {
-  useNavigate, useParams, Navigate,
+  useNavigate, useParams,
 } from 'react-router-dom';
 import ActionCable from 'actioncable';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
@@ -31,7 +31,7 @@ const Question = () => {
   const channelRef = useRef(null);
 
   if (questionId === 'id') {
-    return <Navigate to="/" />;
+    navigate('/');
   }
 
   const quiz = quizzes.find((quiz) => quiz.id === parseFloat(quizId));
