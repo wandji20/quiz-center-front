@@ -26,7 +26,19 @@ const CountDown = ({ timer }) => {
   }, [points, createdAt]);
 
   return (
-    <span>{count}</span>
+    <>
+      {
+        count > 0 && (
+          <span
+            className={`count-down  badge position-absolute ${count < 10 ? 'bg-danger' : 'bg-success'}`}
+          >
+            {count}
+          </span>
+        )
+      }
+
+    </>
+
   );
 };
 

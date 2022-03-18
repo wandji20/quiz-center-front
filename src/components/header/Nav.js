@@ -5,7 +5,7 @@ import { UserContext } from '../../context/user/UserContextProvider';
 import { clearAuthToken } from '../../utils/utils';
 
 const Nav = () => {
-  const { loggedIn, logoutUser } = useContext(UserContext);
+  const { loggedIn, logoutUser, user } = useContext(UserContext);
   const { addNotification } = useContext(NotificationContext);
 
   const handleLogoutUser = () => {
@@ -14,25 +14,28 @@ const Nav = () => {
     addNotification({ notice: 'signed out' });
   };
 
+  const gravatarUrl = user.gravatar_url
+    ? user.gravatar_url
+    : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y &s=40';
   return (
     <nav className="nav bg-light border-bottom">
       <div className="d-flex container-fluid p-0 justify-content-center position-relative">
-        <div className="d-flex justify-content-center align-items-center me-1">
-          <span className="text-uppercase fw-bold fs-4">Quiz</span>
-          <div className="mx-3 relative">
-            <Link to="/" className="text-decoration-none">
-              <i className="bi bi-book-half" style={{ fontSize: '40px', color: 'blue' }} />
-            </Link>
-          </div>
-          <span className="text-uppercase fw-bold fs-4">Center</span>
+        <Link to="/" className="text-decoration-none text-dark h-100">
+          <div className="d-flex justify-content-center h-100 align-items-center me-1">
+            <span className="text-uppercase fw-bold fs-4">Quiz</span>
+            <div className="mx-3 relative">
+              <i className="bi bi-book-half" style={{ fontSize: '40px', color: 'rgb(50, 50, 202)' }} />
+            </div>
+            <span className="text-uppercase fw-bold fs-4">Center</span>
 
-        </div>
+          </div>
+        </Link>
         <div
           className="position-absolute gravatar d-flex justify-content-center align-items-center h-100"
         >
           <span className="pe-2" data-bs-toggle="dropdown">
             <img
-              src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y &s=40"
+              src={gravatarUrl}
               style={{ borderRadius: '50% ' }}
               alt="gravatar default"
             />

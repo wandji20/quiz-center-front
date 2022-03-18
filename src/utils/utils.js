@@ -12,10 +12,18 @@ export const clearAuthToken = () => {
 };
 
 export const setloggedInStatus = (status) => {
-  console.log(status);
   sessionStorage.setItem('quizCenterLoggedInStatus', status);
 };
 
 export const getLoggedInStatus = () => (
   JSON.parse(sessionStorage.getItem('quizCenterLoggedInStatus')) || false
 );
+
+export const setAnsweredQuestionId = (id) => {
+  sessionStorage.setItem('quizCenterAnsweredQuestionId', id);
+};
+
+export const getAnsweredQuestionId = () => {
+  const id = sessionStorage.getItem('quizCenterAnsweredQuestionId');
+  return id;
+};

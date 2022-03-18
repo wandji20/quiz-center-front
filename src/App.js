@@ -8,7 +8,6 @@ import { QuizContext } from './context/quiz/QuizContextProvider';
 import { UserContext } from './context/user/UserContextProvider';
 
 function App() {
-  console.log('In App');
   const { notice, alert, addNotification } = useContext(NotificationContext);
   const { saveQuizzes } = useContext(QuizContext);
   const { loginUser } = useContext(UserContext);
@@ -36,7 +35,7 @@ function App() {
     handleFetchQuizzes();
   }, []);
   return (
-    <>
+    <div className="col-lg-10 m-auto">
       <Nav />
       <section id="content">
         <Outlet />
@@ -47,7 +46,7 @@ function App() {
           alert && <Notification message={alert} messageType="alert" />
         }
       </section>
-    </>
+    </div>
   );
 }
 

@@ -32,11 +32,10 @@ const Result = () => {
   useEffect(() => {
     handlefetchResultsRequest();
   }, []);
-  console.log(quizzes);
-  console.log(results);
-  let counter = 1;
+
+  let counter = 0;
   return (
-    <div className="m-auto text-center ">
+    <div className="m-auto text-center container-fluid ">
       <table className="table text-capitalize">
         <thead>
           <tr>

@@ -29,13 +29,15 @@ const Question = () => {
   const answeredQuestionRef = useRef(null);
   const channelRef = useRef(null);
 
-  if (questionId === 'id' || quizzes.length === 0) {
+  if (questionId === 'id') {
     return <Navigate to="/" />;
   }
-  console.log('In Question');
+
+  const quiz = quizzes.find((quiz) => quiz.id === parseFloat(quizId));
 
   const [answer, setAnswer] = useState(null);
   const [question, setQuestion] = useState({ description: '', answers: [] });
+  const [status, setStatus] = useState(false);
 
   const handlecreateAnsweredQuestionRequest = async () => {
     try {
@@ -59,18 +61,21 @@ const Question = () => {
 
   const timerRef = useRef(
     {
-      points: 1,
+      points: 0,
       createdAt: Date.now(),
     },
   );
 
   const handleCableResponse = (data) => {
-    const answeredQuestion = data.question.question;
+    console.log(data);
+    const answeredQuestion = data.answered_question.answered_question.question;
+
     setQuestion(answeredQuestion);
-    answeredQuestionRef.current = data.answered_question.id;
+    answeredQuestionRef.current = data.answered_question.answered_question.id;
+    setStatus(data.status.status);
     timerRef.current = {
       points: answeredQuestion.points,
-      createdAt: data.answered_question.created_at,
+      createdAt: data.answered_question.answered_question.created_at,
     };
   };
 
@@ -83,14 +88,13 @@ const Question = () => {
       received: (data) => {
         handleCableResponse(data);
       },
-      connected: () => {
-        handlecreateAnsweredQuestionRequest();
-      },
     },
   );
 
   useEffect(() => {
     const answerChannel = createSubscription();
+
+    handlecreateAnsweredQuestionRequest();
 
     channelRef.current = answerChannel;
 
@@ -112,8 +116,6 @@ const Question = () => {
   };
 
   const getNextQuestion = () => {
-    const quiz = quizzes.find((quiz) => quiz.id === parseFloat(quizId));
-
     const questionIds = quiz.question_ids.filter(
       (question) => (question.id !== parseFloat(urlQuestionId)),
     );
@@ -157,26 +159,30 @@ const Question = () => {
               />
             ))
           }
-          <div className="question-actions position-absolute">
-            <div className="col-10 mx-auto d-flex justify-content-between pb-2">
-              <button
-                type="button"
-                className="btn btn-primary py-1 px-2"
-                onClick={handleSaveAndExit}
-                disabled={answer === null}
-              >
-                save and exit
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary py-1 px-2"
-                onClick={handleNext}
-                disabled={answer === null}
-              >
-                Next
-              </button>
-            </div>
-          </div>
+          {
+            status && (
+              <div className="question-actions position-absolute">
+                <div className="col-10 mx-auto d-flex justify-content-between pb-2">
+                  <button
+                    type="button"
+                    className="btn btn-primary py-1 px-2"
+                    onClick={handleSaveAndExit}
+                    disabled={answer === null}
+                  >
+                    save and exit
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary py-1 px-2"
+                    onClick={handleNext}
+                    disabled={answer === null}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )
+          }
         </div>
       </div>
     </div>

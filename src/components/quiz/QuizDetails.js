@@ -35,7 +35,7 @@ const QuizDetails = ({ quiz }) => {
 
   return (
     <div
-      className="quiz primary-bg col-10 fs-3 text-white d-flex justify-content-center align-items-center "
+      className="quiz primary-bg col-10 fs-3 text-white d-flex justify-content-center align-items-center col-lg-5 "
       onMouseEnter={() => setShowAction(true)}
       onMouseLeave={() => setShowAction(false)}
     >
