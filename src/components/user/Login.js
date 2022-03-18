@@ -76,10 +76,10 @@ const Login = () => {
     <div className="py-2 container-fluid pt-3">
 
       <h4 className="text-center">Login</h4>
-      <div className="d-flex flex-column align-items-center col-9 mt-3 mx-auto">
-        <form className="col-12" onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+      <div className="container d-flex flex-column align-items-center mt-3 mx-auto">
+        <form className="col-12 col-md-9 col-lg-6 d-flex flex-column align-items-start" onSubmit={handleSubmit}>
+          <div className="mb-3 col-12">
+            <label htmlFor="email" className="form-label col-12">
               Email
               <input
                 type="email"
@@ -90,8 +90,8 @@ const Login = () => {
               />
             </label>
           </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+          <div className="mb-3 col-12">
+            <label htmlFor="password" className="form-label col-12">
               Password
               <input
                 type="password"
@@ -113,15 +113,15 @@ const Login = () => {
             </label>
           </div>
           <button type="submit" className="btn btn-primary py-1 px-2">login</button>
+          <small className="mt-2 w-100">
+            <span>Don&apos;t have an account?</span>
+            <span className="ps-1">
+              <Link to="/sign_up" className="text-decoration-none">Sign up</Link>
+              {' '}
+              instead.
+            </span>
+          </small>
         </form>
-        <small className="mt-2">
-          <span>Don&apos;t have an account?</span>
-          <span className="ps-1">
-            <Link to="/sign_up" className="text-decoration-none">Sign up</Link>
-            {' '}
-            instead.
-          </span>
-        </small>
       </div>
     </div>
   );

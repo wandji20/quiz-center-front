@@ -79,8 +79,8 @@ const SignUp = () => {
     <div className="py-2 container-fluid mt-2">
 
       <h4 className="text-center">Sign Up</h4>
-      <div className="d-flex flex-column align-items-center col-9 mt-1 mx-auto">
-        <form className="col-12" onSubmit={handleSubmit}>
+      <div className="container d-flex flex-column align-items-center mt-1 mx-auto">
+        <form className="col-12 col-md-9 col-lg-6" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="first_name" className="form-label w-100">
               <span className="d-block">First Name</span>
@@ -168,15 +168,15 @@ const SignUp = () => {
             </label>
           </div>
           <button type="submit" className="btn btn-primary py-1 px-2">Create Account</button>
+          <small className="mt-2 d-block">
+            <span>Already have an account?</span>
+            <span className="ps-1">
+              <Link to="/login" className="text-decoration-none">login</Link>
+              {' '}
+              instead.
+            </span>
+          </small>
         </form>
-        <small className="mt-2">
-          <span>Already have an account?</span>
-          <span className="ps-1">
-            <Link to="/login" className="text-decoration-none">login</Link>
-            {' '}
-            instead.
-          </span>
-        </small>
       </div>
     </div>
   );

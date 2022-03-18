@@ -1,5 +1,7 @@
-export const BASE_URL = 'http://localhost:3001';
-
+// export const BASE_URL = 'http://localhost:3001';
+// export const BASE_WSS = 'localhost:3001';
+export const BASE_URL = 'https://quiz-center-api.herokuapp.com';
+export const BASE_WSS = 'quiz-center-api.herokuapp.com';
 export const QuizIndex = 'quizzes/index';
 
 export const REMOVE_QUESTION_FROM_QUIZ = 'REMOVE_QUESTION_FROM_QUIZ';

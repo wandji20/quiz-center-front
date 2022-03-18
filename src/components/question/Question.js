@@ -12,6 +12,7 @@ import { UserContext } from '../../context/user/UserContextProvider';
 import Answer from './Answer';
 import { getAuthToken } from '../../utils/utils';
 import CountDown from './CountDown';
+import { BASE_WSS } from '../../context/constants';
 
 const Question = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const Question = () => {
   };
 
   const token = getAuthToken();
-  const cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${token}`);
+  const cable = ActionCable.createConsumer(`ws://${BASE_WSS}/cable?token=${token}`);
 
   const timerRef = useRef(
     {
@@ -67,7 +68,6 @@ const Question = () => {
   );
 
   const handleCableResponse = (data) => {
-    console.log(data);
     const answeredQuestion = data.answered_question.answered_question.question;
 
     setQuestion(answeredQuestion);
@@ -88,13 +88,15 @@ const Question = () => {
       received: (data) => {
         handleCableResponse(data);
       },
+
+      connected: () => {
+        handlecreateAnsweredQuestionRequest();
+      },
     },
   );
 
   useEffect(() => {
     const answerChannel = createSubscription();
-
-    handlecreateAnsweredQuestionRequest();
 
     channelRef.current = answerChannel;
 
@@ -140,15 +142,16 @@ const Question = () => {
   };
 
   return (
-    <div className="pt-5 fs-4 d-flex flex-column">
+    <div className="container pt-5 fs-5 d-flex flex-column position-relative h-100">
       <CountDown timer={timerRef.current} />
-      <p className="p-0 d-flex justify-content-around col-12">
+      <div className="d-flex justify-content-around col-12">
         <span className="fw-bold col-1">Q.</span>
         <span className=" col-10">{description}</span>
-      </p>
-      <div className="answers mt-3 container-fluid d-flex just">
+      </div>
+      <div className="answers mt-3 container-fluid d-flex justify-content-around">
+        <div className="col-1" />
         <div
-          className="d-flex flex-column align-items-start col-10 mx-auto"
+          className="d-flex flex-column align-items-start col-10"
         >
           {
             answers.map((answer) => (
@@ -159,8 +162,9 @@ const Question = () => {
               />
             ))
           }
-          {
-            status && (
+        </div>
+        {
+            !status && (
               <div className="question-actions position-absolute">
                 <div className="col-10 mx-auto d-flex justify-content-between pb-2">
                   <button
@@ -183,7 +187,6 @@ const Question = () => {
               </div>
             )
           }
-        </div>
       </div>
     </div>
   );
