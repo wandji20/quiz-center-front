@@ -19,7 +19,7 @@ const NotificationContextProvider = ({ children }) => {
     notice: state.notice,
     alert: state.alert,
 
-    addNotification: (notification) => {
+    addNotification: (notification = {}) => {
       const payload = { ...initialState, ...notification };
       dispatch(notificationAction(payload));
     },

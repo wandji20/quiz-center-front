@@ -30,11 +30,27 @@
 }
 
 .quiz:hover {
-  background-color: white;
+  background-color: rgb(79, 79, 216);
 }
 
 .question-actions {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.notification {
+  left: 0;
+  bottom: 0;
+}
+
+.count-down {
+  top: 5px;
+  right: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .question-actions {
+    bottom: 100px;
+  }
 }

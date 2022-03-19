@@ -3,7 +3,7 @@ import { LOGIN, LOGOUT } from '../constants';
 const userReducer = (state, action) => {
   switch (action.type) {
     case LOGIN: {
-      return { ...state, loggedIn: true, user: action.payload };
+      return { ...state, loggedIn: true, ...action.payload };
     }
 
     case LOGOUT: {

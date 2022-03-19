@@ -5,7 +5,7 @@ const Answer = ({ answer, handleAnswerChange }) => {
   const { id, value } = answer;
   return (
     <div className="mb-3 form-check">
-      <label className="form-check-label" htmlFor="r">
+      <label className="form-check-label" htmlFor="answer">
         <input
           type="radio"
           className="form-check-input"

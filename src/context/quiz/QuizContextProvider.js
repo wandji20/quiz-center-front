@@ -1,29 +1,31 @@
 import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import quizReducer from './quizReducer';
-import { quizIndexAction, removeQuestionFromQuiz } from './quizActions';
+import { quizIndexAction, removeQuestionFromQuiz, resultsAction } from './quizActions';
 
 export const QuizContext = createContext();
 
 const QuizContextProvider = ({ children }) => {
   const initialState = {
     quizzes: [],
-    question: {},
     results: [],
   };
 
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const value = {
     quizzes: state.quizzes,
-    question: state.question,
     results: state.results,
 
-    removeQuizQuestion: (quizId) => {
-      dispatch(removeQuestionFromQuiz(quizId));
+    removeQuizQuestion: (quizId, questionId) => {
+      dispatch(removeQuestionFromQuiz({ quizId, questionId }));
     },
 
     saveQuizzes: (quizzes) => {
       dispatch(quizIndexAction(quizzes));
+    },
+
+    saveResult: (results) => {
+      dispatch(resultsAction(results));
     },
   };
 
