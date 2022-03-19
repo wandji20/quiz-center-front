@@ -20,11 +20,11 @@
 
 ## Live Demo
 
-[Live Demo Link]()
+[Live Demo Link](https://quiz-center-front.herokuapp.com/)
 
 ## API
 
-[Live Demo Link]()
+[Live Demo Link](https://quiz-center-api.herokuapp.com/doc)
 
 ## Getting Started
 

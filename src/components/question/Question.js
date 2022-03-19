@@ -60,7 +60,7 @@ const Question = () => {
   const token = getAuthToken();
   const cable = ActionCable.createConsumer(`wss://${BASE_WSS}/cable?token=${token}`);
 
-  const timerRef = useRef(
+  const [timer, setTimer] = useState(
     {
       points: 0,
       createdAt: Date.now(),
@@ -73,10 +73,11 @@ const Question = () => {
     setQuestion(answeredQuestion);
     answeredQuestionRef.current = data.answered_question.answered_question.id;
     setStatus(data.status.status);
-    timerRef.current = {
+
+    setTimer({
       points: answeredQuestion.points,
       createdAt: data.answered_question.answered_question.created_at,
-    };
+    });
   };
 
   const createSubscription = () => cable.subscriptions.create(
@@ -143,7 +144,7 @@ const Question = () => {
 
   return (
     <div className="container pt-5 fs-5 d-flex flex-column position-relative h-100">
-      <CountDown timer={timerRef.current} />
+      <CountDown timer={timer} />
       <div className="d-flex justify-content-around col-12">
         <span className="fw-bold col-1">Q.</span>
         <span className=" col-10">{description}</span>
