@@ -72,7 +72,7 @@ const Question = () => {
 
     setQuestion(answeredQuestion);
     answeredQuestionRef.current = data.answered_question.answered_question.id;
-    setStatus(data.status.status);
+    setStatus(data.status);
 
     setTimer({
       points: answeredQuestion.points,
