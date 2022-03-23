@@ -36,6 +36,7 @@ export const loginRequest = async (authentication) => {
     body: JSON.stringify({ authentication }),
   });
   const response = await server.json();
+
   return response;
 };
 

@@ -30,7 +30,7 @@ const Question = () => {
 
   const answeredQuestionRef = useRef(null);
   const channelRef = useRef(null);
-  console.log(quizzes);
+
   if (questionId === 'id') {
     navigate('/');
   }
@@ -110,7 +110,7 @@ const Question = () => {
   const { description, answers } = question;
 
   const handleAnswerChange = (e) => {
-    setAnswer(e.target.value);
+    setAnswer(Number(e.target.value));
   };
 
   const handleAnswerSubmit = () => {
