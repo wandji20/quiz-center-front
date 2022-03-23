@@ -2,7 +2,7 @@
 
 > This project is based on creating a platform where users can signup and take quizzes.
 > Each question has a points value which detects how much time a user has to submit an answer before the countdown hits zero. Also, an answer can only be submitted once.
-> As a logged in user, You will be able to start a qiuz amd have the possibility to exit a quiz whenever you want. And you can see your progress on the result page.
+> As a logged in user, You will be able to start a qiuz and have the possibility to exit a quiz whenever you want. And you can see your progress on the result page.
 
 ![](/app/assets/images/screenshot.png)
 
