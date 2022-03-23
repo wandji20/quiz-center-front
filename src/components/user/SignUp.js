@@ -13,8 +13,7 @@ const SignUp = () => {
   const { saveQuizzes } = useContext(QuizContext);
   const navigate = useNavigate();
   const [userObj, setUserObj] = useState({
-    first_name: '',
-    last_name: '',
+    username: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -32,8 +31,7 @@ const SignUp = () => {
   const resetUserObj = () => {
     setUserObj(() => (
       {
-        first_name: '',
-        last_name: '',
+        username: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -82,31 +80,16 @@ const SignUp = () => {
       <div className="container d-flex flex-column align-items-center mt-1 mx-auto">
         <form className="col-12 col-md-9 col-lg-6" onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="first_name" className="form-label w-100">
-              <span className="d-block">First Name</span>
+            <label htmlFor="username" className="form-label w-100">
+              <span className="d-block">Username</span>
               {
-                errors.first_name && <FormError message={errors.first_name[0]} />
-              }
-              <input
-                type="text"
-                className="form-control"
-                id="first_name"
-                value={userObj.first_name}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="last_name" className="form-label w-100">
-              <span className="d-block">Last name</span>
-              {
-              errors.last_name && <FormError message={errors.last_name[0]} />
+              errors.username && <FormError message={errors.username[0]} />
             }
               <input
                 type="text"
                 className="form-control"
-                id="last_name"
-                value={userObj.last_name}
+                id="username"
+                value={userObj.username}
                 onChange={handleInputChange}
               />
             </label>
