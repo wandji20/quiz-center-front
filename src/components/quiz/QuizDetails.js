@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { UserContext } from '../../context/user/UserContextProvider';
 import QuizAction from './QuizAction';
+import actionText from '../../utils/filterText';
 
 const QuizDetails = ({ quiz }) => {
   const { loggedIn } = useContext(UserContext);
@@ -13,25 +14,7 @@ const QuizDetails = ({ quiz }) => {
   const questionId = questionIds[0];
   const questionUrl = `/quiz/${id}/question/${questionIds[0] ? questionId : 'id'}`;
 
-  const actionText = () => {
-    switch (true) {
-      case !loggedIn: {
-        return 'Start';
-      }
-      case loggedIn && questionIds.length === 5: {
-        return 'Start';
-      }
-
-      case loggedIn && questionIds.length > 0: {
-        return 'Continue';
-      }
-
-      default:
-        return 'Completed';
-    }
-  };
-
-  const text = actionText();
+  const text = actionText(loggedIn, questionIds);
 
   return (
     <div

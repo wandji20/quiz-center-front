@@ -1,4 +1,4 @@
-import { QuizIndex, REMOVE_QUESTION_FROM_QUIZ, RESULT } from '../constants';
+import { QuizIndex, REMOVE_QUESTION_FROM_QUIZ, RESULT } from '../../utils/constants';
 
 const quizReducer = (state, action) => {
   switch (action.type) {

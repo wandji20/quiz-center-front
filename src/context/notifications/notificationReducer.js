@@ -1,4 +1,4 @@
-import { NOTIFICATIONS } from '../constants';
+import { NOTIFICATIONS } from '../../utils/constants';
 
 const notificationReducer = (state, action) => {
   switch (action.type) {

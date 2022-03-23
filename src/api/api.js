@@ -1,4 +1,4 @@
-import { BASE_URL } from '../context/constants';
+import { BASE_URL } from '../utils/constants';
 import { getAuthToken } from '../utils/utils';
 
 export const fetchQuizzesRequest = async () => {
@@ -36,6 +36,7 @@ export const loginRequest = async (authentication) => {
     body: JSON.stringify({ authentication }),
   });
   const response = await server.json();
+
   return response;
 };
 
