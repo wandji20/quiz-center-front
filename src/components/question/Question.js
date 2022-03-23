@@ -12,7 +12,8 @@ import { UserContext } from '../../context/user/UserContextProvider';
 import Answer from './Answer';
 import { getAuthToken } from '../../utils/utils';
 import CountDown from './CountDown';
-import { BASE_WSS } from '../../context/constants';
+import { BASE_WSS } from '../../utils/constants';
+import AnswerActions from './AnswerActions';
 
 const Question = () => {
   const navigate = useNavigate();
@@ -29,14 +30,14 @@ const Question = () => {
 
   const answeredQuestionRef = useRef(null);
   const channelRef = useRef(null);
-
+  console.log(quizzes);
   if (questionId === 'id') {
     navigate('/');
   }
 
   const quiz = quizzes.find((quiz) => quiz.id === parseFloat(quizId));
 
-  const [answer, setAnswer] = useState(null);
+  const [answer, setAnswer] = useState(0);
   const [question, setQuestion] = useState({ description: '', answers: [] });
   const [status, setStatus] = useState(false);
 
@@ -58,7 +59,7 @@ const Question = () => {
   };
 
   const token = getAuthToken();
-  const cable = ActionCable.createConsumer(`wss://${BASE_WSS}/cable?token=${token}`);
+  const cable = ActionCable.createConsumer(`${BASE_WSS}/cable?token=${token}`);
 
   const [timer, setTimer] = useState(
     {
@@ -104,7 +105,7 @@ const Question = () => {
     return () => {
       channelRef.current.unsubscribe();
     };
-  }, [urlQuestionId]);
+  }, [urlQuestionId, user]);
 
   const { description, answers } = question;
 
@@ -166,26 +167,11 @@ const Question = () => {
         </div>
         {
             status && (
-              <div className="question-actions position-absolute">
-                <div className="col-10 mx-auto d-flex justify-content-between pb-2">
-                  <button
-                    type="button"
-                    className="btn btn-primary py-1 px-2"
-                    onClick={handleSaveAndExit}
-                    disabled={answer === null}
-                  >
-                    save and exit
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary py-1 px-2"
-                    onClick={handleNext}
-                    disabled={answer === null}
-                  >
-                    Next
-                  </button>
-                </div>
-              </div>
+              <AnswerActions
+                answer={answer}
+                handleNext={handleNext}
+                handleSaveAndExit={handleSaveAndExit}
+              />
             )
           }
       </div>

@@ -1,4 +1,4 @@
-import { BASE_URL } from '../context/constants';
+import { BASE_URL } from '../utils/constants';
 import { getAuthToken } from '../utils/utils';
 
 export const fetchQuizzesRequest = async () => {

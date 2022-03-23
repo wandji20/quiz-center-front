@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../constants';
+import { LOGIN, LOGOUT } from '../../utils/constants';
 
 export const loginUserAction = (payload) => ({
   type: LOGIN, payload,
