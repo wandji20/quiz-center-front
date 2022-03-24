@@ -3,7 +3,7 @@ import { getAuthToken } from '../utils/utils';
 
 export const fetchQuizzesRequest = async () => {
   const Authorization = getAuthToken();
-  const url = Authorization !== null ? `${BASE_URL}/home` : BASE_URL;
+  const url = BASE_URL;
 
   const server = await fetch(url,
     {
