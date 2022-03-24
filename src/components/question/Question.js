@@ -31,10 +31,6 @@ const Question = () => {
   const answeredQuestionRef = useRef(null);
   const channelRef = useRef(null);
 
-  if (questionId === 'id') {
-    navigate('/');
-  }
-
   const quiz = quizzes.find((quiz) => quiz.id === parseFloat(quizId));
 
   const [answer, setAnswer] = useState(0);

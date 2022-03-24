@@ -24,10 +24,10 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<Home />} />
             <Route path="sign_up" element={<SignUp />} />
             <Route path="login" element={<Login />} />
             <Route element={<ProtectedRoute />}>
+              <Route index element={<Home />} />
               <Route path="/result" element={<Result />} />
               <Route path="/quiz/:quizId/question/:questionId" element={<Question />} />
             </Route>
