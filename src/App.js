@@ -12,26 +12,26 @@ function App() {
   const { saveQuizzes } = useContext(QuizContext);
   const { loginUser } = useContext(UserContext);
 
-  const handleFetchQuizzes = async () => {
-    addNotification();
-    try {
-      const response = await fetchQuizzesRequest();
-
-      const { quizzes, user, alert } = response;
-      if (user) {
-        loginUser({ user });
-      }
-      if (quizzes) {
-        saveQuizzes(quizzes);
-      }
-      if (alert) {
-        addNotification(response);
-      }
-    } catch (e) {
-      addNotification({ alert: e.message });
-    }
-  };
   useEffect(() => {
+    const handleFetchQuizzes = async () => {
+      addNotification();
+      try {
+        const response = await fetchQuizzesRequest();
+
+        const { quizzes, user, alert } = response;
+        if (user) {
+          loginUser({ user });
+        }
+        if (quizzes) {
+          saveQuizzes(quizzes);
+        }
+        if (alert) {
+          addNotification(response);
+        }
+      } catch (e) {
+        addNotification({ alert: e.message });
+      }
+    };
     handleFetchQuizzes();
   }, []);
   return (

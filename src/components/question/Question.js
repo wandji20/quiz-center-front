@@ -81,23 +81,22 @@ const Question = () => {
     });
   };
 
-  const createSubscription = () => cable.subscriptions.create(
-    {
-      channel: 'AnsweredQuestionChannel',
-      email: user.email,
-    },
-    {
-      received: (data) => {
-        handleCableResponse(data);
-      },
-
-      connected: () => {
-        handlecreateAnsweredQuestionRequest();
-      },
-    },
-  );
-
   useEffect(() => {
+    const createSubscription = () => cable.subscriptions.create(
+      {
+        channel: 'AnsweredQuestionChannel',
+        email: user.email,
+      },
+      {
+        received: (data) => {
+          handleCableResponse(data);
+        },
+
+        connected: () => {
+          handlecreateAnsweredQuestionRequest();
+        },
+      },
+    );
     const answerChannel = createSubscription();
 
     channelRef.current = answerChannel;

@@ -9,27 +9,26 @@ const Result = () => {
   const { quizzes, results, saveResult } = useContext(QuizContext);
   const { addNotification } = useContext(NotificationContext);
 
-  const handlefetchResultsRequest = async () => {
-    try {
-      const response = await getResultsRequest();
-      const { alert, result } = response;
-      if (result) {
-        saveResult({ results: result });
-      }
-      if (alert) {
-        addNotification({ alert });
-      }
-    } catch (error) {
-      addNotification({ alert: error.message });
-    }
-  };
-
   const totalAttempted = results.map((result) => result.attempted)
     .reduce((a, b) => a + b, 0);
   const totalCorrect = results.map((result) => result.score)
     .reduce((a, b) => a + b, 0);
 
   useEffect(() => {
+    const handlefetchResultsRequest = async () => {
+      try {
+        const response = await getResultsRequest();
+        const { alert, result } = response;
+        if (result) {
+          saveResult({ results: result });
+        }
+        if (alert) {
+          addNotification({ alert });
+        }
+      } catch (error) {
+        addNotification({ alert: error.message });
+      }
+    };
     handlefetchResultsRequest();
   }, []);
 
