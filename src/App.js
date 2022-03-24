@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { useCallback, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import Nav from './components/header/Nav';
 import { fetchQuizzesRequest } from './api/api';
 import Notification from './components/notification/Notification';
@@ -12,49 +12,29 @@ function App() {
   const { saveQuizzes } = useContext(QuizContext);
   const { loginUser } = useContext(UserContext);
 
-  // const handleFetchQuizzes = async () => {
-  //   addNotification();
-  //   try {
-  //     const response = await fetchQuizzesRequest();
-
-  //     const { quizzes, user, alert } = response;
-  //     if (user) {
-  //       loginUser({ user });
-  //     }
-  //     if (quizzes) {
-  //       saveQuizzes(quizzes);
-  //     }
-  //     if (alert) {
-  //       addNotification(response);
-  //     }
-  //   } catch (e) {
-  //     addNotification({ alert: e.message });
-  //   }
-  // };
-
-  const handleFetchQuizzes = useCallback(async () => {
-    addNotification();
-    try {
-      const response = await fetchQuizzesRequest();
-
-      const { quizzes, user, alert } = response;
-      if (user) {
-        loginUser({ user });
-      }
-      if (quizzes) {
-        saveQuizzes(quizzes);
-      }
-      if (alert) {
-        addNotification(response);
-      }
-    } catch (e) {
-      addNotification({ alert: e.message });
-    }
-  }, []);
-
   useEffect(() => {
+    const handleFetchQuizzes = async () => {
+      addNotification();
+      try {
+        const response = await fetchQuizzesRequest();
+
+        const { quizzes, user, alert } = response;
+        if (user) {
+          loginUser({ user });
+        }
+        if (quizzes) {
+          saveQuizzes(quizzes);
+        }
+        if (alert) {
+          addNotification(response);
+        }
+      } catch (e) {
+        addNotification({ alert: e.message });
+      }
+    };
     handleFetchQuizzes();
-  }, [fetchQuizzesRequest]);
+    // eslint-disable-next-line
+  }, []);
   return (
     <div className="col-lg-10 m-auto">
       <Nav />

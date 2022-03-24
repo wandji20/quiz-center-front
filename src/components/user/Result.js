@@ -30,6 +30,7 @@ const Result = () => {
       }
     };
     handlefetchResultsRequest();
+    // eslint-disable-next-line
   }, []);
 
   let counter = 0;

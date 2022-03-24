@@ -23,6 +23,7 @@ const CountDown = ({ timer }) => {
 
   useEffect(() => {
     setCount(initialCount);
+    // eslint-disable-next-line
   }, [timer]);
 
   return (

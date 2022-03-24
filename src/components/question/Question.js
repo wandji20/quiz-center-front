@@ -104,6 +104,7 @@ const Question = () => {
     return () => {
       channelRef.current.unsubscribe();
     };
+    // eslint-disable-next-line
   }, [urlQuestionId, user]);
 
   const { description, answers } = question;
