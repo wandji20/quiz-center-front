@@ -10,8 +10,8 @@ import { NotificationContext } from '../../context/notifications/NotificationCon
 import { createAnsweredQuestionRequest } from '../../api/api';
 import { UserContext } from '../../context/user/UserContextProvider';
 import Answer from './Answer';
-import { getAuthToken } from '../../utils/utils';
 import CountDown from './CountDown';
+import { getAuthToken } from '../../utils/utils';
 import { BASE_WSS } from '../../utils/constants';
 import AnswerActions from './AnswerActions';
 

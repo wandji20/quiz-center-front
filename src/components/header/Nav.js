@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import { UserContext } from '../../context/user/UserContextProvider';
 import { clearAuthToken } from '../../utils/utils';
-import LoggedIn from './LoggedIn';
-import LoggedOut from './LoggedOut';
+import { LoggedIn, LoggedOut } from '../index';
 
 const Nav = () => {
   const { loggedIn, logoutUser, user } = useContext(UserContext);
