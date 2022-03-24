@@ -20,7 +20,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://quiz-center-front.herokuapp.com/)
+[Live Demo Link](https://quiz-center-front.netlify.app/)
 
 ## API
 
