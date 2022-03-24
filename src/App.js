@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import Nav from './components/header/Nav';
 import { fetchQuizzesRequest } from './api/api';
 import Notification from './components/notification/Notification';
@@ -12,28 +12,49 @@ function App() {
   const { saveQuizzes } = useContext(QuizContext);
   const { loginUser } = useContext(UserContext);
 
-  useEffect(() => {
-    const handleFetchQuizzes = async () => {
-      addNotification();
-      try {
-        const response = await fetchQuizzesRequest();
+  // const handleFetchQuizzes = async () => {
+  //   addNotification();
+  //   try {
+  //     const response = await fetchQuizzesRequest();
 
-        const { quizzes, user, alert } = response;
-        if (user) {
-          loginUser({ user });
-        }
-        if (quizzes) {
-          saveQuizzes(quizzes);
-        }
-        if (alert) {
-          addNotification(response);
-        }
-      } catch (e) {
-        addNotification({ alert: e.message });
+  //     const { quizzes, user, alert } = response;
+  //     if (user) {
+  //       loginUser({ user });
+  //     }
+  //     if (quizzes) {
+  //       saveQuizzes(quizzes);
+  //     }
+  //     if (alert) {
+  //       addNotification(response);
+  //     }
+  //   } catch (e) {
+  //     addNotification({ alert: e.message });
+  //   }
+  // };
+
+  const handleFetchQuizzes = useCallback(async () => {
+    addNotification();
+    try {
+      const response = await fetchQuizzesRequest();
+
+      const { quizzes, user, alert } = response;
+      if (user) {
+        loginUser({ user });
       }
-    };
-    handleFetchQuizzes();
+      if (quizzes) {
+        saveQuizzes(quizzes);
+      }
+      if (alert) {
+        addNotification(response);
+      }
+    } catch (e) {
+      addNotification({ alert: e.message });
+    }
   }, []);
+
+  useEffect(() => {
+    handleFetchQuizzes();
+  }, [fetchQuizzesRequest]);
   return (
     <div className="col-lg-10 m-auto">
       <Nav />

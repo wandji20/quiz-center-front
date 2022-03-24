@@ -7,7 +7,7 @@ const CountDown = ({ timer }) => {
   const initialCount = Math.floor(
     (parseFloat(points) * 60) - (Math.floor(Date.now() - createdAt) / 1000),
   );
-  const [count, setCount] = useState(initialCount);
+  const [count, setCount] = useState(() => initialCount);
 
   useEffect(() => {
     const performCounter = setTimeout(() => {
