@@ -86,6 +86,7 @@ const QuestionIndex = () => {
         },
       },
     );
+  // eslint-disable-next-line
   }, [user, selectedQuestionId]);
 
   useEffect(() => {
