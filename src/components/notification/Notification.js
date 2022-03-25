@@ -17,6 +17,7 @@ const Notification = ({ message, messageType }) => {
     return () => {
       clearTimeout(clearNotification);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (

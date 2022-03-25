@@ -1,6 +1,5 @@
-/* eslint-disable */
 import React, {
-  useContext, useState, useEffect, useRef, useCallback,
+  useContext, useEffect, useRef, useCallback,
 } from 'react';
 import {
   useNavigate, useParams,
@@ -16,9 +15,8 @@ import { BASE_WSS } from '../../utils/constants';
 import Question from './Question';
 
 const QuestionIndex = () => {
-
   const {
-    removeQuizQuestion, selectedQuestionId, quizzes, question, answeredQuestion, resetQuestionAndAnsweredQuestion, saveQuestion, saveAnsweredQuestion
+    removeQuizQuestion, selectedQuestionId, saveQuestion, saveAnsweredQuestion,
   } = useContext(QuizContext);
 
   const { user } = useContext(UserContext);
@@ -26,15 +24,14 @@ const QuestionIndex = () => {
   const channelRef = useRef(null);
 
   const urlParams = useParams();
-  
+
   const { addNotification } = useContext(NotificationContext);
-  
+
   const navigate = useNavigate();
   const { quizId, questionId } = urlParams;
 
-  // const [urlQuestionId, setUrlQuestionId] = useState(questionId);
-    
-  // post request to create an answered question
+  // post request to create an answered question and update quiz context provider
+  // and notification context
   const handlecreateAnsweredQuestionRequest = async () => {
     try {
       const response = await createAnsweredQuestionRequest(
@@ -53,23 +50,25 @@ const QuestionIndex = () => {
     }
   };
 
-  // Update local state with dat received via websocket
+  // Update question and answered question values in quiz context with
+  // that received via websocket
   const handleCableResponse = (data) => {
-    const answeredQuestion = data.answered_question.answered_question
+    const answeredQuestion = data.answered_question.answered_question;
     saveQuestion(data.question);
     saveAnsweredQuestion(
-      { 
+      {
         answeredQuestion: {
           id: answeredQuestion.id,
           createdAt: answeredQuestion.created_at,
           updatable: answeredQuestion.updatable,
-        } 
-      }
+        },
+      },
     );
   };
 
-  // create user subscription to websocket connection
-  const createSubscription = useCallback(()=> {
+  // create user subscription to websocket connection and create a
+  // answered question on successful connection
+  const createSubscription = useCallback(() => {
     const token = getAuthToken();
     const cable = ActionCable.createConsumer(`${BASE_WSS}/cable?token=${token}`);
     return cable.subscriptions.create(
@@ -90,7 +89,6 @@ const QuestionIndex = () => {
   }, [user, selectedQuestionId]);
 
   useEffect(() => {
-
     const answerChannel = createSubscription();
 
     channelRef.current = answerChannel;
@@ -103,8 +101,8 @@ const QuestionIndex = () => {
 
   return (
     <div className="container pt-5 fs-5 d-flex flex-column position-relative h-100">
-      <Question 
-        channel={channelRef.current} 
+      <Question
+        channel={channelRef.current}
         handlecreateAnsweredQuestionRequest={handlecreateAnsweredQuestionRequest}
       />
     </div>

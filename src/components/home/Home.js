@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
+import Roller from '../requestPlaceholder/Roller';
 import QuizDetails from '../quiz/QuizDetails';
-import { Roller } from '../index';
 
 const Home = () => {
   const { quizzes } = useContext(QuizContext);
@@ -16,7 +16,6 @@ const Home = () => {
           quizzes.map((quiz) => <QuizDetails key={quiz.id} quiz={quiz} />)
 
         )
-
       }
     </div>
   );

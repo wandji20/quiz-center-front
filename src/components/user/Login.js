@@ -20,6 +20,7 @@ const Login = () => {
     password: '',
   });
 
+  // update state of targeted input id attribute for user object
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setUserObj((state) => (
@@ -29,6 +30,7 @@ const Login = () => {
     ));
   };
 
+  // reset user object state to empty strings
   const resetUserObj = () => {
     setUserObj(() => (
       {
@@ -38,12 +40,14 @@ const Login = () => {
     ));
   };
 
+  // reset user object password
   const resetPassword = () => {
     setUserObj((state) => ({
       ...state, password: '',
     }));
   };
 
+  // make api request to login user and update context providers
   const handleUserLogin = async () => {
     addNotification();
     try {

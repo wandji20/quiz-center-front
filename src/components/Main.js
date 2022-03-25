@@ -12,6 +12,7 @@ function Main() {
   const { saveQuizzes } = useContext(QuizContext);
   const { loginUser } = useContext(UserContext);
 
+  // fetch user quizzes and updates quiz and user context provider values
   useEffect(() => {
     const handleFetchQuizzes = async () => {
       addNotification();
