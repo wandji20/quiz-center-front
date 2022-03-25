@@ -28,6 +28,7 @@ const QuizDetails = ({ quiz }) => {
             <QuizAction
               text={text}
               questionUrl={questionUrl}
+              questionId={questionId || 0}
             />
           )
           : <h6 className="text-capitalize h5 qiuz-title">{title}</h6>

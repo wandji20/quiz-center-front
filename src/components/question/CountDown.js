@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
+import { QuizContext } from '../../context/quiz/QuizContextProvider';
 
-const CountDown = ({ timer }) => {
-  const { points, createdAt } = timer;
+const CountDown = () => {
+  const { question, answeredQuestion } = useContext(QuizContext);
 
-  const initialCount = Math.floor(
-    (parseFloat(points) * 60) - (Math.floor(Date.now() - createdAt) / 1000),
-  );
-  const [count, setCount] = useState(() => initialCount);
+  const { createdAt } = answeredQuestion;
+  const { points } = question;
+
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
+    const initialCount = Math.floor(
+      (parseFloat(points) * 60) - (Math.floor(Date.now() - createdAt) / 1000),
+    );
+    setCount(initialCount);
+
+    // update conter by -1
     const performCounter = setTimeout(() => {
       if (count > 0) {
         setCount((count) => (count - 1));
@@ -17,14 +23,10 @@ const CountDown = ({ timer }) => {
     }, 1000);
 
     return () => {
+      setCount(0);
       clearTimeout(performCounter);
     };
-  }, [count, timer]);
-
-  useEffect(() => {
-    setCount(initialCount);
-    // eslint-disable-next-line
-  }, [timer]);
+  }, [count]);
 
   return (
     <>
@@ -41,13 +43,6 @@ const CountDown = ({ timer }) => {
     </>
 
   );
-};
-
-CountDown.propTypes = {
-  timer: PropTypes.exact({
-    points: PropTypes.number,
-    createdAt: PropTypes.number,
-  }).isRequired,
 };
 
 export default CountDown;

@@ -1,4 +1,9 @@
-import { QuizIndex, REMOVE_QUESTION_FROM_QUIZ, RESULT } from '../../utils/constants';
+import {
+  ADD_ANSWERED_QUESTION,
+  ADD_QUESTION, ADD_QUESTIONID, QuizIndex,
+  REMOVE_QUESTION_FROM_QUIZ,
+  RESET_QUESTION_AND_ANSWERED_QUESTION, RESULT,
+} from '../../utils/constants';
 
 const quizReducer = (state, action) => {
   switch (action.type) {
@@ -23,6 +28,23 @@ const quizReducer = (state, action) => {
     case RESULT: {
       return { ...state, ...action.payload };
     }
+
+    case ADD_QUESTION: {
+      return { ...state, ...action.payload };
+    }
+
+    case ADD_ANSWERED_QUESTION: {
+      return { ...state, ...action.payload };
+    }
+
+    case RESET_QUESTION_AND_ANSWERED_QUESTION: {
+      return { ...state, ...action.payload };
+    }
+
+    case ADD_QUESTIONID: {
+      return { ...state, ...action.payload };
+    }
+
     default:
       return state;
   }

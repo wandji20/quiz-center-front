@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Main from './components/Main';
 import {
-  Login, SignUp, ProtectedRoute, Home, Result, Question,
+  Login, SignUp, ProtectedRoute, Home, Result, QuestionIndex, Question,
 } from './components';
 
 const App = () => (
@@ -13,7 +13,9 @@ const App = () => (
       <Route element={<ProtectedRoute />}>
         <Route index element={<Home />} />
         <Route path="/result" element={<Result />} />
-        <Route path="/quiz/:quizId/question/:questionId" element={<Question />} />
+        <Route element={<QuestionIndex />}>
+          <Route path="/quiz/:quizId/question/:questionId" element={Question} />
+        </Route>
       </Route>
     </Route>
   </Routes>
