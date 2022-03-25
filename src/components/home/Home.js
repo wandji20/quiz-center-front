@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
 import QuizDetails from '../quiz/QuizDetails';
+import { Roller } from '../index';
 
 const Home = () => {
   const { quizzes } = useContext(QuizContext);
@@ -10,7 +11,12 @@ const Home = () => {
       className="d-flex flex-column align-items-center h-100 justify-content-around flex-lg-row flex-lg-wrap h-lg-50"
     >
       {
-        quizzes.map((quiz) => <QuizDetails key={quiz.id} quiz={quiz} />)
+        quizzes.length === 0 ? <Roller /> : (
+
+          quizzes.map((quiz) => <QuizDetails key={quiz.id} quiz={quiz} />)
+
+        )
+
       }
     </div>
   );

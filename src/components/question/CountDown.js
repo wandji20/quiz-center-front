@@ -26,7 +26,7 @@ const CountDown = () => {
       setCount(0);
       clearTimeout(performCounter);
     };
-  }, [count]);
+  }, [count, points, createdAt]);
 
   return (
     <>

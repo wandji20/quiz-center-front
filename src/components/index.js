@@ -10,3 +10,4 @@ export { default as FormError } from './notification/FormError';
 export { default as LoggedIn } from './header/LoggedIn';
 export { default as LoggedOut } from './header/LoggedOut';
 export { default as CountDown } from './question/CountDown';
+export { default as Roller } from './requestPlaceholder/Roller';
