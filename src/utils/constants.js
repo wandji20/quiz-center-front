@@ -19,3 +19,11 @@ export const ANSWERED_QUESTION_UPDATE = 'answered_questions/update';
 export const NOTIFICATIONS = 'notifications';
 
 export const RESULT = 'quizzes/result';
+
+export const ADD_QUESTION = 'quizzes/question';
+
+export const ADD_ANSWERED_QUESTION = 'quizzes/answeredQuestion';
+
+export const RESET_QUESTION_AND_ANSWERED_QUESTION = 'quizzes/questions/answeredQuestions';
+
+export const ADD_QUESTIONID = 'quizzes/selectedQuestionId';

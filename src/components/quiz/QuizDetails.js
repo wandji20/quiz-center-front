@@ -12,7 +12,7 @@ const QuizDetails = ({ quiz }) => {
   const { title, id } = quiz;
   const questionIds = quiz.question_ids || [];
   const questionId = questionIds[0];
-  const questionUrl = `/quiz/${id}/question/${questionIds[0] ? questionId : 'id'}`;
+  const questionUrl = questionId ? `/quiz/${id}/question/${questionIds[0]}` : '/';
 
   const text = actionText(loggedIn, questionIds);
 
@@ -28,6 +28,7 @@ const QuizDetails = ({ quiz }) => {
             <QuizAction
               text={text}
               questionUrl={questionUrl}
+              questionId={questionId || 0}
             />
           )
           : <h6 className="text-capitalize h5 qiuz-title">{title}</h6>

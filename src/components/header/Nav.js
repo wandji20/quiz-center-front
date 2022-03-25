@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import { UserContext } from '../../context/user/UserContextProvider';
 import { clearAuthToken } from '../../utils/utils';
-import LoggedIn from './LoggedIn';
-import LoggedOut from './LoggedOut';
+import { LoggedIn, LoggedOut } from '../index';
 
 const Nav = () => {
   const { loggedIn, logoutUser, user } = useContext(UserContext);
@@ -35,6 +34,13 @@ const Nav = () => {
         <div
           className="position-absolute gravatar d-flex justify-content-center align-items-center h-100"
         >
+          <ul className="list-unstyled d-none d-lg-flex align-items-center m-0">
+            {
+                loggedIn
+                  ? <LoggedIn handleLogoutUser={handleLogoutUser} />
+                  : <LoggedOut />
+              }
+          </ul>
           <span className="pe-2" data-bs-toggle="dropdown">
             <img
               src={gravatarUrl}
@@ -42,7 +48,7 @@ const Nav = () => {
               alt="gravatar url"
             />
           </span>
-          <ul id="nav-dropdown" className="dropdown-menu" style={{ minWidth: 'none' }}>
+          <ul id="nav-dropdown" className="dropdown-menu d-lg-none" style={{ minWidth: 'none' }}>
             {
               loggedIn
                 ? <LoggedIn handleLogoutUser={handleLogoutUser} />

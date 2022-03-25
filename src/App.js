@@ -1,54 +1,24 @@
-import { Outlet } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import Nav from './components/header/Nav';
-import { fetchQuizzesRequest } from './api/api';
-import Notification from './components/notification/Notification';
-import { NotificationContext } from './context/notifications/NotificationContextProvider';
-import { QuizContext } from './context/quiz/QuizContextProvider';
-import { UserContext } from './context/user/UserContextProvider';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Main from './components/Main';
+import {
+  Login, SignUp, ProtectedRoute, Home, Result, QuestionIndex, Question,
+} from './components';
 
-function App() {
-  const { notice, alert, addNotification } = useContext(NotificationContext);
-  const { saveQuizzes } = useContext(QuizContext);
-  const { loginUser } = useContext(UserContext);
-
-  useEffect(() => {
-    const handleFetchQuizzes = async () => {
-      addNotification();
-      try {
-        const response = await fetchQuizzesRequest();
-
-        const { quizzes, user, alert } = response;
-        if (user) {
-          loginUser({ user });
-        }
-        if (quizzes) {
-          saveQuizzes(quizzes);
-        }
-        if (alert) {
-          addNotification(response);
-        }
-      } catch (e) {
-        addNotification({ alert: e.message });
-      }
-    };
-    handleFetchQuizzes();
-    // eslint-disable-next-line
-  }, []);
-  return (
-    <div className="col-lg-10 m-auto">
-      <Nav />
-      <section id="content">
-        <Outlet />
-        {
-          notice && <Notification message={notice} messageType="notice" />
-        }
-        {
-          alert && <Notification message={alert} messageType="alert" />
-        }
-      </section>
-    </div>
-  );
-}
+const App = () => (
+  <Routes>
+    <Route path="/" element={<Main />}>
+      <Route path="sign_up" element={<SignUp />} />
+      <Route path="login" element={<Login />} />
+      <Route element={<ProtectedRoute />}>
+        <Route index element={<Home />} />
+        <Route path="/result" element={<Result />} />
+        <Route element={<QuestionIndex />}>
+          <Route path="/quiz/:quizId/question/:questionId" element={Question} />
+        </Route>
+      </Route>
+    </Route>
+  </Routes>
+);
 
 export default App;

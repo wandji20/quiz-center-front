@@ -19,6 +19,7 @@ const SignUp = () => {
     password_confirmation: '',
   });
 
+  // update local state of user object targetted id attribute
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setUserObj((state) => (
@@ -28,6 +29,7 @@ const SignUp = () => {
     ));
   };
 
+  // reset entire state of user object attributes to empty strings
   const resetUserObj = () => {
     setUserObj(() => (
       {
@@ -39,12 +41,15 @@ const SignUp = () => {
     ));
   };
 
+  // reset user object password and password confirmation attributes
   const resetPassword = () => {
     setUserObj((state) => ({
       ...state, password: '', password_confirmation: '',
     }));
   };
 
+  // post user object to create a new user and update quiz, user and
+  // notifications context provider values
   const handleUserSignUp = async () => {
     addNotification();
     try {

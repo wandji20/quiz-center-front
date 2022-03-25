@@ -1,9 +1,10 @@
 import { BASE_URL } from '../utils/constants';
 import { getAuthToken } from '../utils/utils';
 
+// api request to fetch signed in users quiz and questions
 export const fetchQuizzesRequest = async () => {
   const Authorization = getAuthToken();
-  const url = Authorization !== null ? `${BASE_URL}/home` : BASE_URL;
+  const url = BASE_URL;
 
   const server = await fetch(url,
     {
@@ -13,6 +14,7 @@ export const fetchQuizzesRequest = async () => {
   return response;
 };
 
+// api request to sign up a new user
 export const signUpRequest = async (user) => {
   const url = `${BASE_URL}/sign_up`;
   const server = await fetch(url, {
@@ -26,6 +28,7 @@ export const signUpRequest = async (user) => {
   return response;
 };
 
+// api request to authenticate a user
 export const loginRequest = async (authentication) => {
   const url = `${BASE_URL}/login`;
   const server = await fetch(url, {
@@ -40,6 +43,7 @@ export const loginRequest = async (authentication) => {
   return response;
 };
 
+// api request to create an answered question
 export const createAnsweredQuestionRequest = async (answeredQuestion) => {
   const url = `${BASE_URL}/answered_questions`;
   const Authorization = getAuthToken();
@@ -55,6 +59,7 @@ export const createAnsweredQuestionRequest = async (answeredQuestion) => {
   return response;
 };
 
+// api request to fetch user results
 export const getResultsRequest = async () => {
   const url = `${BASE_URL}/result`;
   const Authorization = getAuthToken();

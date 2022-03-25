@@ -18,12 +18,3 @@ export const setloggedInStatus = (status) => {
 export const getLoggedInStatus = () => (
   JSON.parse(sessionStorage.getItem('quizCenterLoggedInStatus')) || false
 );
-
-export const setAnsweredQuestionId = (id) => {
-  sessionStorage.setItem('quizCenterAnsweredQuestionId', id);
-};
-
-export const getAnsweredQuestionId = () => {
-  const id = sessionStorage.getItem('quizCenterAnsweredQuestionId');
-  return id;
-};
