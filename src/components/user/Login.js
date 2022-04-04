@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { loginRequest } from '../../api/api';
@@ -70,9 +71,9 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    resetPassword();
-    handleUserLogin();
+    // e.preventDefault();
+    // resetPassword();
+    // handleUserLogin();
   };
 
   return (

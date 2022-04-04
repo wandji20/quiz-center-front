@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {
   useContext, useEffect, useRef, useCallback,
 } from 'react';
@@ -90,13 +91,13 @@ const QuestionIndex = () => {
   }, [user, selectedQuestionId]);
 
   useEffect(() => {
-    const answerChannel = createSubscription();
+    // const answerChannel = createSubscription();
 
-    channelRef.current = answerChannel;
+    // channelRef.current = answerChannel;
 
-    return () => {
-      channelRef.current.unsubscribe();
-    };
+    // return () => {
+    //   channelRef.current.unsubscribe();
+    // };
     // eslint-disable-next-line
   }, [user, selectedQuestionId]);
 

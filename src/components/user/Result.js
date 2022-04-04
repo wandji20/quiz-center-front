@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useContext, useEffect } from 'react';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
@@ -20,22 +21,22 @@ const Result = () => {
   useEffect(() => {
     // make api request to get user results and update update quiz
     // context provider value
-    const handlefetchResultsRequest = async () => {
-      try {
-        const response = await getResultsRequest();
-        const { alert, result } = response;
-        if (result) {
-          saveResult({ results: result });
-        }
-        if (alert) {
-          addNotification({ alert });
-        }
-      } catch (error) {
-        addNotification({ alert: error.message });
-      }
-    };
+    // const handlefetchResultsRequest = async () => {
+    //   try {
+    //     const response = await getResultsRequest();
+    //     const { alert, result } = response;
+    //     if (result) {
+    //       saveResult({ results: result });
+    //     }
+    //     if (alert) {
+    //       addNotification({ alert });
+    //     }
+    //   } catch (error) {
+    //     addNotification({ alert: error.message });
+    //   }
+    // };
 
-    handlefetchResultsRequest();
+    // handlefetchResultsRequest();
     // eslint-disable-next-line
   }, []);
 
