@@ -10,10 +10,11 @@ const QuizDetails = ({ quiz }) => {
   const [showAction, setShowAction] = useState(false);
 
   const { title, id } = quiz;
-  const questionIds = quiz.question_ids || [];
+  const questionIds = quiz.questionIds || [];
   const questionId = questionIds[0];
   const questionUrl = questionId ? `/quiz/${id}/question/${questionIds[0]}` : '/';
 
+  console.log(loggedIn, questionIds, quiz);
   const text = actionText(loggedIn, questionIds);
 
   return (

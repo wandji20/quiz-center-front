@@ -17,11 +17,15 @@ export const PAYLOAD = gql`
   }
 `;
 
-// export const RESULT = gql`
-//   query {
-//     result
-//   }
-// `;
+export const RESULT = gql`
+  query {
+    result {
+      quizId
+      attempted
+      score
+    }
+  }
+`;
 
 // export const QUESTION = gql`
 //   query {

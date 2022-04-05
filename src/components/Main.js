@@ -14,16 +14,14 @@ import mapMessage from '../utils/tranformNotification';
 function Main() {
   const { notice, alert, addNotification } = useContext(NotificationContext);
   const { saveQuizzes } = useContext(QuizContext);
-  const { loginUser, loggedIn } = useContext(UserContext);
+  const { loginUser } = useContext(UserContext);
 
   const response = useQuery(PAYLOAD);
   const { loading, error, data } = response;
-  console.log(loggedIn)
-  console.log(data)
+
   // fetch user quizzes and updates quiz and user context provider values
   useEffect(() => {
     const handleError = (error) => {
-      console.log('In useEffect')
       if (error.message !== 'undefined') {
         addNotification({ alert: error.message })
       }

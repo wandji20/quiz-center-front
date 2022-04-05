@@ -1,14 +1,22 @@
 /* eslint-disable */
 import React, { useContext, useEffect } from 'react';
+import { useQuery } from "@apollo/client";
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import QuizResult from './QuizResult';
 import Roller from '../requestPlaceholder/Roller';
-import { getResultsRequest } from '../../api/api';
+
+import { RESULT } from '../../apollo/query/query';
+import mapMessage from '../../utils/tranformNotification';
 
 const Result = () => {
   const { quizzes, results, saveResult } = useContext(QuizContext);
   const { addNotification } = useContext(NotificationContext);
+
+  const response = useQuery(RESULT);
+  const { loading, error, data } = response;
+
+  console.log(response);
 
   // count number of attempted questions
   const totalAttempted = results.map((result) => result.attempted)
@@ -19,26 +27,26 @@ const Result = () => {
     .reduce((a, b) => a + b, 0);
 
   useEffect(() => {
-    // make api request to get user results and update update quiz
-    // context provider value
-    // const handlefetchResultsRequest = async () => {
-    //   try {
-    //     const response = await getResultsRequest();
-    //     const { alert, result } = response;
-    //     if (result) {
-    //       saveResult({ results: result });
-    //     }
-    //     if (alert) {
-    //       addNotification({ alert });
-    //     }
-    //   } catch (error) {
-    //     addNotification({ alert: error.message });
-    //   }
-    // };
+    const handleError = (error) => {
+      if (error.message !== 'undefined') {
+        addNotification({ alert: error.message })
+      }
+      if (error.graphQLErrors.length > 0) {
+        addNotification({ alert: mapMessage(error.graphQLErrors[0]) })
+      }
+    }
+    if (error) {
+      handleError(error)
+    }
 
-    // handlefetchResultsRequest();
+    if(data) {
+      const { result } = data
+      console.log(result);
+      saveResult({ results: result })
+    }
+
     // eslint-disable-next-line
-  }, []);
+  }, [loading]);
 
   let counter = 0;
   return (
@@ -59,7 +67,7 @@ const Result = () => {
                 <tbody>
                   {
                   results.map((result) => {
-                    const quiz = quizzes.find((quiz) => result.quiz_id === quiz.id);
+                    const quiz = quizzes.find((quiz) => result.quizId === quiz.id);
                     const { attempted, score } = result;
                     const { title, id } = quiz;
                     counter += 1;

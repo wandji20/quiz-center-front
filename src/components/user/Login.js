@@ -57,7 +57,7 @@ const Login = () => {
       email: userObj.email, password: userObj.password
     }
   });
-  console.log(response);
+
   const { data, loading, error } = response
 
   // make api request to login user and update context providers
