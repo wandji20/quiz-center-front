@@ -1,6 +1,11 @@
+/* eslint-disable */
+import {
+  gql,
+} from '@apollo/client';
+
 export const LOGIN = gql`
-  mutation ($email: String!, $password: String!) {
-    createAuthentication(email: $email, password: $password) {
+  mutation login($email: String!, $password: String!) {
+    createAuthentication(input: { email: $email, password: $password }) {
       token
       user {
         username
@@ -20,7 +25,7 @@ export const SIGNUP = gql`
     $username: String!, 
     $email: String!, 
     $password: String!, 
-    $passwordConfirmation
+    $passwordConfirmation: String!
   ) {
       createAuthentication(
         username: $username,
