@@ -13,7 +13,7 @@ const Result = () => {
   const { addNotification } = useContext(NotificationContext);
 
   // fetch user result
-  const response = useQuery(RESULT);
+  const response = useQuery(RESULT, { fetchPolicy: 'no-cache' });
   const { loading, error, data } = response;
 
   // count number of attempted questions
