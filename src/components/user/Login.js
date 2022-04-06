@@ -1,9 +1,8 @@
-/* eslint-disable */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   useMutation,
-} from "@apollo/client";
+} from '@apollo/client';
 import { LOGIN } from '../../apollo/mutation/mutation';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
@@ -52,34 +51,30 @@ const Login = () => {
     }));
   };
 
-  const [login, response] = useMutation(LOGIN, { 
+  // login user mutation
+  const [login, response] = useMutation(LOGIN, {
     variables: {
-      email: userObj.email, password: userObj.password
-    }
+      email: userObj.email, password: userObj.password,
+    },
   });
 
-  const { data, loading, error } = response
-
-  // make api request to login user and update context providers
-  const handleUserLogin = () => {
-    login();
-  };
+  const { data, loading, error } = response;
 
   useEffect(() => {
     const handleError = (error) => {
       if (error.message !== 'undefined') {
-        addNotification({ alert: error.message })
+        addNotification({ alert: error.message });
       }
       if (error.graphQLErrors.length > 0) {
-        addNotification({ alert: mapMessage(error.graphQLErrors[0]) })
+        addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
       }
-    }
+    };
     if (error) {
-      handleError(error)
+      handleError(error);
     }
 
-    if(data) {
-      const { user, quizzes, token } = data.createAuthentication
+    if (data) {
+      const { user, quizzes, token } = data.createAuthentication;
       resetUserObj();
       loginUser({ user });
       saveQuizzes(quizzes);
@@ -88,12 +83,12 @@ const Login = () => {
       addNotification({ notice: 'Successful' });
       navigate(from, { replace: true });
     }
-  }, [loading])
+  }, [loading]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     resetPassword();
-    handleUserLogin();
+    login();
   };
 
   return (

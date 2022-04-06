@@ -1,6 +1,5 @@
-/* eslint-disable */
 import React, { useContext, useEffect } from 'react';
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import QuizResult from './QuizResult';
@@ -13,34 +12,34 @@ const Result = () => {
   const { quizzes, results, saveResult } = useContext(QuizContext);
   const { addNotification } = useContext(NotificationContext);
 
+  // fetch user result
   const response = useQuery(RESULT);
   const { loading, error, data } = response;
 
   // count number of attempted questions
   const totalAttempted = results.map((result) => result.attempted)
-    .reduce((a, b) => a + b, 0);
+    .reduce((a, b) => Number(a) + Number(b), 0);
 
   // count number of correct answers
   const totalCorrect = results.map((result) => result.score)
-    .reduce((a, b) => a + b, 0);
+    .reduce((a, b) => Number(a) + Number(b), 0);
 
   useEffect(() => {
     const handleError = (error) => {
       if (error.message !== 'undefined') {
-        addNotification({ alert: error.message })
+        addNotification({ alert: error.message });
       }
       if (error.graphQLErrors.length > 0) {
-        addNotification({ alert: mapMessage(error.graphQLErrors[0]) })
+        addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
       }
-    }
+    };
     if (error) {
-      handleError(error)
+      handleError(error);
     }
 
-    if(data) {
-      const { result } = data
-      console.log(result);
-      saveResult({ results: result })
+    if (data) {
+      const { result } = data;
+      saveResult({ results: result });
     }
 
     // eslint-disable-next-line

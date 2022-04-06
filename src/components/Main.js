@@ -1,7 +1,6 @@
-/* eslint-disable */
 import { Outlet } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
 
 import Nav from './header/Nav';
 import { Notification } from '.';
@@ -16,25 +15,25 @@ function Main() {
   const { saveQuizzes } = useContext(QuizContext);
   const { loginUser } = useContext(UserContext);
 
+  // fetch user and quizzes
   const response = useQuery(PAYLOAD);
   const { loading, error, data } = response;
 
-  // fetch user quizzes and updates quiz and user context provider values
   useEffect(() => {
     const handleError = (error) => {
       if (error.message !== 'undefined') {
-        addNotification({ alert: error.message })
+        addNotification({ alert: error.message });
       }
       if (error.graphQLErrors.length > 0) {
-        addNotification({ alert: mapMessage(error.graphQLErrors[0]) })
+        addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
       }
-    }
+    };
     if (error) {
-      handleError(error)
+      handleError(error);
     }
 
-    if(data) {
-      const { user, quizzes } = data
+    if (data) {
+      const { user, quizzes } = data;
       loginUser({ user });
       saveQuizzes(quizzes);
     }

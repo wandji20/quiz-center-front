@@ -1,11 +1,10 @@
-/* eslint-disable */
 import React, {
   useContext, useState, useEffect,
 } from 'react';
 import {
   useNavigate, useParams,
 } from 'react-router-dom';
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
 import Answer from './Answer';
 import CountDown from './CountDown';
@@ -39,10 +38,10 @@ const Question = () => {
 
   const quiz = quizzes.find((quiz) => quiz.id === (quizId));
   const [updateAnsweredQuestion] = useMutation(
-      UPDATE_ANSWERED_QUESTION, { 
-        variables: { answeredQuestionId: id, answerId: answer } 
-      }
-    )
+    UPDATE_ANSWERED_QUESTION, {
+      variables: { answeredQuestionId: id, answerId: answer },
+    },
+  );
 
   useEffect(() => () => {
     resetQuestionAndAnsweredQuestion();
@@ -107,7 +106,7 @@ const Question = () => {
                 }
               </div>
               {
-                (
+                updatable && (
                   <AnswerActions
                     handleNext={handleNext}
                     handleSaveAndExit={handleSaveAndExit}
