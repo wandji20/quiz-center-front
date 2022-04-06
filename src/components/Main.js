@@ -37,6 +37,7 @@ function Main() {
       loginUser({ user });
       saveQuizzes(quizzes);
     }
+    // eslint-disable-next-line
   }, [loading]);
 
   return (

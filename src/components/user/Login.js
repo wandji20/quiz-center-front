@@ -80,6 +80,7 @@ const Login = () => {
     if (error) {
       handleError(error);
     }
+    // eslint-disable-next-line
   }, [loading]);
 
   const handleSubmit = (e) => {
