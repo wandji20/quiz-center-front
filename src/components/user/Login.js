@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import {
-  useMutation,
-} from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { LOGIN } from '../../apollo/mutation/mutation';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';

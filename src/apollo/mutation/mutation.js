@@ -26,11 +26,13 @@ export const SIGNUP = gql`
     $password: String!, 
     $passwordConfirmation: String!
   ) {
-      createAuthentication(
-        username: $username,
-        email: $email, 
-        password: $password
-        passwordConfirmation: $passwordConfirmation
+      createUser(
+        input: {
+          username: $username,
+          email: $email, 
+          password: $password,
+          passwordConfirmation: $passwordConfirmation,
+        }
       ) {
           token
           user {
