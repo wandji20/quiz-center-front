@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ApolloProvider } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -8,14 +9,19 @@ import App from './App';
 import IndexContextProvider from './context/IndexContextProvider';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import createApolloClient from './apollo';
+
+const client = createApolloClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <IndexContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </IndexContextProvider>
+    <ApolloProvider client={client}>
+      <IndexContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </IndexContextProvider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

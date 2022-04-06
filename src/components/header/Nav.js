@@ -15,8 +15,8 @@ const Nav = () => {
     addNotification({ notice: 'signed out' });
   };
 
-  const gravatarUrl = user.gravatar_url
-    ? user.gravatar_url
+  const gravatarUrl = user.gravatarUrl
+    ? user.gravatarUrl
     : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y &s=40';
   return (
     <nav className="nav bg-light border-bottom">
