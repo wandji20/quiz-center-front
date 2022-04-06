@@ -49,7 +49,7 @@ const Result = () => {
   return (
     <>
       {
-          (quizzes.length === 0) ? <Roller /> : (
+          (quizzes.length === 0 || loading) ? <Roller /> : (
 
             <div className="m-auto text-center container-fluid ">
               <table className="table text-capitalize">
