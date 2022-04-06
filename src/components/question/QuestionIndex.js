@@ -24,10 +24,16 @@ const QuestionIndex = () => {
   const { quizId, questionId } = urlParams;
 
   // mutation to create answered question
-  const [createAnsweredQuestion, { loading, data, error }] = useMutation(
+  const [createAnsweredQuestion, { loading, error }] = useMutation(
     CREATE_ANSWERED_QUESTION,
     {
       variables: { quizId, questionId },
+      onCompleted: ({ createAnsweredQuestion }) => {
+        const { answeredQuestion, question } = createAnsweredQuestion;
+        saveQuestion({ question });
+        saveAnsweredQuestion({ answeredQuestion });
+        removeQuizQuestion(quizId, questionId);
+      },
     },
   );
 
@@ -45,12 +51,6 @@ const QuestionIndex = () => {
       navigate(-1);
     }
 
-    if (data) {
-      const { answeredQuestion, question } = data.createAnsweredQuestion;
-      saveQuestion({ question });
-      saveAnsweredQuestion({ answeredQuestion });
-      removeQuizQuestion(quizId, questionId);
-    }
     // eslint-disable-next-line
   }, [loading])
 

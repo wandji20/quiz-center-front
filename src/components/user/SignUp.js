@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
@@ -8,6 +7,7 @@ import { UserContext } from '../../context/user/UserContextProvider';
 import { setAuthToken } from '../../utils/utils';
 import FormError from '../notification/FormError';
 import { SIGNUP } from '../../apollo/mutation/mutation';
+import mapMessage from '../../utils/tranformNotification';
 
 const SignUp = () => {
   const { addNotification, errors } = useContext(NotificationContext);
@@ -21,27 +21,11 @@ const SignUp = () => {
     passwordConfirmation: '',
   });
 
-  // sign up user mutation
-  const [signUp, response] = useMutation(SIGNUP, {
-    variables: {
-      username: userObj.username,
-      email: userObj.email,
-      password: userObj.password,
-      passwordConfirmation: userObj.passwordConfirmation
-    }
-  });
-
-  const { loading, data, error } = response
-  console.log(response);
-
-  // update local state of user object targetted id attribute
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setUserObj((state) => (
-      {
-        ...state, [id]: value,
-      }
-    ));
+  // reset user object password and password confirmation attributes
+  const resetPassword = () => {
+    setUserObj((state) => ({
+      ...state, password: '', passwordConfirmation: '',
+    }));
   };
 
   // reset entire state of user object attributes to empty strings
@@ -56,35 +40,16 @@ const SignUp = () => {
     ));
   };
 
-  // reset user object password and password confirmation attributes
-  const resetPassword = () => {
-    setUserObj((state) => ({
-      ...state, password: '', passwordConfirmation: '',
-    }));
-  };
-
-  // post user object to create a new user and update quiz, user and
-  // notifications context provider values
-
-  useEffect(() => {
-    const handleError = (error) => {
-      if (error.message !== 'undefined') {
-        addNotification({ alert: error.message });
-      }
-      if (error.graphQLErrors.length > 0) {
-        if (typeof(error.graphQLErrors[0]) === 'object') {
-          addNotification({ errors: error.graphQLErrors[0] });
-        }else {
-          addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
-        }
-      } 
-    };
-    if (error) {
-      handleError(error);
-    }
-
-    if (data) {
-      const { user, quizzes, token } = data.createUser;
+  // sign up user mutation
+  const [signUp, response] = useMutation(SIGNUP, {
+    variables: {
+      username: userObj.username,
+      email: userObj.email,
+      password: userObj.password,
+      passwordConfirmation: userObj.passwordConfirmation,
+    },
+    onCompleted: ({ createUser }) => {
+      const { user, quizzes, token } = createUser;
       resetUserObj();
       loginUser({ user });
       saveQuizzes(quizzes);
@@ -92,17 +57,44 @@ const SignUp = () => {
 
       addNotification({ notice: 'Account created' });
       navigate('/');
+    },
+  });
+
+  const { loading, error } = response;
+
+  // update local state of user object targetted id attribute
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setUserObj((state) => (
+      {
+        ...state, [id]: value,
+      }
+    ));
+  };
+
+  useEffect(() => {
+    const handleError = (error) => {
+      if (error.message !== 'undefined') {
+        addNotification({ alert: error.message });
+      }
+      if (error.graphQLErrors.length > 0) {
+        if (typeof (error.graphQLErrors[0]) === 'object') {
+          addNotification({ errors: error.graphQLErrors[0] });
+        } else {
+          addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
+        }
+      }
+    };
+    if (error) {
+      handleError(error);
     }
   }, [loading]);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
     resetPassword();
     signUp();
   };
-
-  console.log(errors.password_confirmation);
 
   return (
 

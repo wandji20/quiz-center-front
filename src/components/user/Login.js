@@ -49,37 +49,36 @@ const Login = () => {
     }));
   };
 
+  const handleError = (error) => {
+    if (error.message !== 'undefined') {
+      addNotification({ alert: error.message });
+    }
+    if (error.graphQLErrors.length > 0) {
+      addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
+    }
+  };
+
   // login user mutation
   const [login, response] = useMutation(LOGIN, {
     variables: {
       email: userObj.email, password: userObj.password,
     },
-  });
-
-  const { data, loading, error } = response;
-
-  useEffect(() => {
-    const handleError = (error) => {
-      if (error.message !== 'undefined') {
-        addNotification({ alert: error.message });
-      }
-      if (error.graphQLErrors.length > 0) {
-        addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
-      }
-    };
-    if (error) {
-      handleError(error);
-    }
-
-    if (data) {
-      const { user, quizzes, token } = data.createAuthentication;
+    onCompleted: ({ createAuthentication }) => {
+      const { user, quizzes, token } = createAuthentication;
       resetUserObj();
       loginUser({ user });
       saveQuizzes(quizzes);
       setAuthToken(token);
 
-      addNotification({ notice: 'Successful' });
+      addNotification({ notice: 'Successfull' });
       navigate(from, { replace: true });
+    },
+  });
+  const { loading, error } = response;
+
+  useEffect(() => {
+    if (error) {
+      handleError(error);
     }
   }, [loading]);
 
