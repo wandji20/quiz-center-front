@@ -21,7 +21,7 @@ export const LOGIN = gql`
 `;
 
 export const SIGNUP = gql`
-  mutation (
+  mutation signup (
     $username: String!, 
     $email: String!, 
     $password: String!, 
@@ -44,5 +44,42 @@ export const SIGNUP = gql`
             questionIds
           }
       }
+  }
+`;
+
+export const CREATE_ANSWERED_QUESTION = gql`
+  mutation createAnsweredQuestion($quizId: ID!, $questionId: ID!)  {
+    createAnsweredQuestion(input: { 
+      quizId: $quizId, questionId: $questionId
+     }) {
+          answeredQuestion {
+            id
+            updatable
+            createdAt
+          }
+          question {
+            id
+            description
+            points
+            answers {
+              id
+              value
+            }
+          }
+        }
+  }
+`;
+
+export const UPDATE_ANSWERED_QUESTION = gql`
+  mutation updateAnsweredQuestion($answerId: ID!, $answeredQuestionId: ID!)  {
+    updateAnsweredQuestion(input: { 
+      answerId: $answerId, answeredQuestionId: $answeredQuestionId
+     }) {
+          answeredQuestion {
+            id
+            updatable
+            createdAt
+          }
+        }
   }
 `;

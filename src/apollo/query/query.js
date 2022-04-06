@@ -26,19 +26,3 @@ export const RESULT = gql`
     }
   }
 `;
-
-// export const QUESTION = gql`
-//   query {
-//     Question($id: ID) {
-//       question(id: $id) {
-//         id
-//         points
-//         description
-//         answers {
-//           id
-//           value
-//         }
-//       }
-//     }
-//   } 
-// `;

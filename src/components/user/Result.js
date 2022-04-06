@@ -16,8 +16,6 @@ const Result = () => {
   const response = useQuery(RESULT);
   const { loading, error, data } = response;
 
-  console.log(response);
-
   // count number of attempted questions
   const totalAttempted = results.map((result) => result.attempted)
     .reduce((a, b) => a + b, 0);
@@ -52,7 +50,7 @@ const Result = () => {
   return (
     <>
       {
-          (quizzes.length === 0 || results.length === 0) ? <Roller /> : (
+          (quizzes.length === 0) ? <Roller /> : (
 
             <div className="m-auto text-center container-fluid ">
               <table className="table text-capitalize">

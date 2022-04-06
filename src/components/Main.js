@@ -2,7 +2,7 @@
 import { Outlet } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { useQuery } from "@apollo/client";
-import { fetchQuizzesRequest } from '../api/api';
+
 import Nav from './header/Nav';
 import { Notification } from '.';
 import { NotificationContext } from '../context/notifications/NotificationContextProvider';
