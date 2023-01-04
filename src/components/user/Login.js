@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { loginRequest } from '../../api/api';
+import { useMutation } from '@apollo/client';
+import { LOGIN } from '../../apollo/mutation/mutation';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
 import { UserContext } from '../../context/user/UserContextProvider';
 import { setAuthToken } from '../../utils/utils';
+import mapMessage from '../../utils/tranformNotification';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,32 +49,44 @@ const Login = () => {
     }));
   };
 
-  // make api request to login user and update context providers
-  const handleUserLogin = async () => {
-    addNotification();
-    try {
-      const response = await loginRequest(userObj);
-      const { Authorization, quizzes, user } = response;
-      if (Authorization) {
-        resetUserObj();
-        setAuthToken(Authorization);
-        saveQuizzes(quizzes);
-        loginUser({ user });
-
-        addNotification({ notice: 'Successful' });
-        navigate(from, { replace: true });
-      } else {
-        addNotification(response);
-      }
-    } catch (e) {
-      addNotification({ alert: e.message });
+  const handleError = (error) => {
+    if (error.message !== 'undefined') {
+      addNotification({ alert: error.message });
+    }
+    if (error.graphQLErrors.length > 0) {
+      addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
     }
   };
+
+  // login user mutation
+  const [login, response] = useMutation(LOGIN, {
+    variables: {
+      email: userObj.email, password: userObj.password,
+    },
+    onCompleted: ({ createAuthentication }) => {
+      const { user, quizzes, token } = createAuthentication;
+      resetUserObj();
+      loginUser({ user });
+      saveQuizzes(quizzes);
+      setAuthToken(token);
+
+      addNotification({ notice: 'Successfull' });
+      navigate(from, { replace: true });
+    },
+  });
+  const { loading, error } = response;
+
+  useEffect(() => {
+    if (error) {
+      handleError(error);
+    }
+    // eslint-disable-next-line
+  }, [loading]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     resetPassword();
-    handleUserLogin();
+    login();
   };
 
   return (
