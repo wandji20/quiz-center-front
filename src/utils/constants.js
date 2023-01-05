@@ -1,5 +1,5 @@
-export const BASE_URL = 'http://localhost:3001/graphql';
-// export const BASE_URL = 'https://quiz-center-api.fly.dev/graphql';
+// export const BASE_URL = 'http://localhost:3001/graphql';
+export const BASE_URL = 'https://quiz-center-api.fly.dev/graphql';
 
 export const QuizIndex = 'quizzes/index';
 
