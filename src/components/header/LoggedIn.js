@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const LoggedIn = ({ handleLogoutUser }) => (
   <>
     <li>
-      <Link to="/result" className="dropdown-item">
+      <Link to="/result" className="dropdown-item me-lg-2">
         result
       </Link>
     </li>
@@ -13,7 +13,7 @@ const LoggedIn = ({ handleLogoutUser }) => (
     <li>
       <Link
         to="/"
-        className="dropdown-item"
+        className="dropdown-item me-lg-2"
         onClick={handleLogoutUser}
       >
         logout
