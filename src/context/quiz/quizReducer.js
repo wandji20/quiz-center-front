@@ -14,10 +14,9 @@ const quizReducer = (state, action) => {
       const { quizId, questionId } = action.payload;
       const filteredQuizzes = [];
       state.quizzes.forEach((quiz) => {
-        if (quiz.id === Number(quizId)) {
-          const questionIds = quiz.question_ids.filter((id) => (id !== Number(questionId)));
-
-          filteredQuizzes.push({ ...quiz, question_ids: questionIds });
+        if (quiz.id === quizId) {
+          const questionIds = quiz.questionIds.filter((id) => (id !== Number(questionId)));
+          filteredQuizzes.push({ ...quiz, questionIds });
         } else {
           filteredQuizzes.push(quiz);
         }
