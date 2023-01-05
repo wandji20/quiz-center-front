@@ -1,13 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { signUpRequest } from '../../api/api';
 import { NotificationContext } from '../../context/notifications/NotificationContextProvider';
 import { QuizContext } from '../../context/quiz/QuizContextProvider';
 import { UserContext } from '../../context/user/UserContextProvider';
 import { setAuthToken } from '../../utils/utils';
 import FormError from '../notification/FormError';
-import { SIGNUP } from '../../apollo/mutation/mutation';
-import mapMessage from '../../utils/tranformNotification';
 
 const SignUp = () => {
   const { addNotification, errors } = useContext(NotificationContext);
@@ -18,49 +16,8 @@ const SignUp = () => {
     username: '',
     email: '',
     password: '',
-    passwordConfirmation: '',
+    password_confirmation: '',
   });
-
-  // reset user object password and password confirmation attributes
-  const resetPassword = () => {
-    setUserObj((state) => ({
-      ...state, password: '', passwordConfirmation: '',
-    }));
-  };
-
-  // reset entire state of user object attributes to empty strings
-  const resetUserObj = () => {
-    setUserObj(() => (
-      {
-        username: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-      }
-    ));
-  };
-
-  // sign up user mutation
-  const [signUp, response] = useMutation(SIGNUP, {
-    variables: {
-      username: userObj.username,
-      email: userObj.email,
-      password: userObj.password,
-      passwordConfirmation: userObj.passwordConfirmation,
-    },
-    onCompleted: ({ createUser }) => {
-      const { user, quizzes, token } = createUser;
-      resetUserObj();
-      loginUser({ user });
-      saveQuizzes(quizzes);
-      setAuthToken(token);
-
-      addNotification({ notice: 'Account created' });
-      navigate('/');
-    },
-  });
-
-  const { loading, error } = response;
 
   // update local state of user object targetted id attribute
   const handleInputChange = (e) => {
@@ -72,29 +29,52 @@ const SignUp = () => {
     ));
   };
 
-  useEffect(() => {
-    const handleError = (error) => {
-      if (error.message !== 'undefined') {
-        addNotification({ alert: error.message });
+  // reset entire state of user object attributes to empty strings
+  const resetUserObj = () => {
+    setUserObj(() => (
+      {
+        username: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
       }
-      if (error.graphQLErrors.length > 0) {
-        if (typeof (error.graphQLErrors[0]) === 'object') {
-          addNotification({ errors: error.graphQLErrors[0] });
-        } else {
-          addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
-        }
+    ));
+  };
+
+  // reset user object password and password confirmation attributes
+  const resetPassword = () => {
+    setUserObj((state) => ({
+      ...state, password: '', password_confirmation: '',
+    }));
+  };
+
+  // post user object to create a new user and update quiz, user and
+  // notifications context provider values
+  const handleUserSignUp = async () => {
+    addNotification();
+    try {
+      const response = await signUpRequest(userObj);
+      const { Authorization, quizzes, user } = response;
+      if (Authorization) {
+        resetUserObj();
+        setAuthToken(Authorization);
+        saveQuizzes(quizzes);
+        loginUser({ user });
+
+        addNotification({ notice: 'Account created' });
+        navigate('/');
+      } else {
+        addNotification(response);
       }
-    };
-    if (error) {
-      handleError(error);
+    } catch (e) {
+      addNotification({ alert: e.message });
     }
-    // eslint-disable-next-line
-  }, [loading]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     resetPassword();
-    signUp();
+    handleUserSignUp();
   };
 
   return (
@@ -150,7 +130,7 @@ const SignUp = () => {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="passwordConfirmation " className="form-label w-100">
+            <label htmlFor="password_confirmation " className="form-label w-100">
               <span className="d-block">Password Confirmation</span>
               {
                 errors.password_confirmation
@@ -159,8 +139,8 @@ const SignUp = () => {
               <input
                 type="password"
                 className="form-control"
-                id="passwordConfirmation"
-                value={userObj.passwordConfirmation}
+                id="password_confirmation"
+                value={userObj.password_confirmation}
                 onChange={handleInputChange}
               />
             </label>

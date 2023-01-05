@@ -14,9 +14,9 @@ const QuizResult = ({
 
 QuizResult.propTypes = {
   counter: PropTypes.number.isRequired,
-  attempted: PropTypes.string.isRequired,
+  attempted: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  score: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default QuizResult;
