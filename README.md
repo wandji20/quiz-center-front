@@ -13,7 +13,7 @@
   - useEffect
   - useState
   - useRef
-- Apollo Client
+- WebSockets(action-cable)
 - JavaScript
 - Bootstrap
 - HTML/CSS
@@ -24,7 +24,7 @@
 
 ## API
 
-[Live Demo Link](https://quiz-center-api.herokuapp.com/)
+[Live Demo Link](https://quiz-center-api.herokuapp.com/doc)
 
 ## Getting Started
 

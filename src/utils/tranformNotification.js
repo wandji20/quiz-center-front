@@ -4,10 +4,6 @@ const mapMessage = (message) => {
       return 'login to continue';
     }
 
-    case 'Missing/Invalid token': {
-      return 'login to continue';
-    }
-
     default:
       return message;
   }

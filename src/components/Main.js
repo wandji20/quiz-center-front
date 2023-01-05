@@ -1,45 +1,41 @@
 import { Outlet } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
-
+import { fetchQuizzesRequest } from '../api/api';
 import Nav from './header/Nav';
 import { Notification } from '.';
 import { NotificationContext } from '../context/notifications/NotificationContextProvider';
 import { QuizContext } from '../context/quiz/QuizContextProvider';
 import { UserContext } from '../context/user/UserContextProvider';
-import { PAYLOAD } from '../apollo/query/query';
-import mapMessage from '../utils/tranformNotification';
 
 function Main() {
   const { notice, alert, addNotification } = useContext(NotificationContext);
   const { saveQuizzes } = useContext(QuizContext);
   const { loginUser } = useContext(UserContext);
 
-  // fetch user and quizzes
-  const response = useQuery(PAYLOAD);
-  const { loading, error, data } = response;
-
+  // fetch user quizzes and updates quiz and user context provider values
   useEffect(() => {
-    const handleError = (error) => {
-      if (error.message !== 'undefined') {
-        addNotification({ alert: error.message });
-      }
-      if (error.graphQLErrors.length > 0) {
-        addNotification({ alert: mapMessage(error.graphQLErrors[0]) });
+    const handleFetchQuizzes = async () => {
+      addNotification();
+      try {
+        const response = await fetchQuizzesRequest();
+
+        const { quizzes, user, alert } = response;
+        if (user) {
+          loginUser({ user });
+        }
+        if (quizzes) {
+          saveQuizzes(quizzes);
+        }
+        if (alert) {
+          addNotification(response);
+        }
+      } catch (e) {
+        addNotification({ alert: e.message });
       }
     };
-    if (error) {
-      handleError(error);
-    }
-
-    if (data) {
-      const { user, quizzes } = data;
-      loginUser({ user });
-      saveQuizzes(quizzes);
-    }
+    handleFetchQuizzes();
     // eslint-disable-next-line
-  }, [loading]);
-
+  }, []);
   return (
     <div className="col-lg-10 m-auto">
       <Nav />
